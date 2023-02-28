@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов (простой)»
 
 * Студент: [Masha Legostina](https://up.htmlacademy.ru/react/12/user/888827).
-* Наставник: `Неизвестно`.
+* Наставник: `Andrey Povstyanko`.
 
 ---
 
