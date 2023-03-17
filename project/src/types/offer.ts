@@ -19,7 +19,7 @@ export type OfferCity = {
   };
   description: string;
   goods: string;
-  host: Host
+  host: Host;
   id: number;
   images: string;
   isPremium: boolean;
