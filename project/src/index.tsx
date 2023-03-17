@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
+import { places } from './mocks/offers';
 
 const Setting = {
   PlaceSelection: 320,
@@ -14,6 +15,7 @@ root.render(
   <React.StrictMode>
     <App
       placeSelection = {Setting.PlaceSelection}
+      offers = {places}
     />
   </React.StrictMode>,
 );
