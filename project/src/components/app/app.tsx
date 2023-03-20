@@ -1,7 +1,7 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../const/const';
 import { HelmetProvider } from 'react-helmet-async';
-import { Offers } from '../../types/offer';
+import { Offers, City, Points } from '../../types/offer';
 import MainRender from '../../pages/main/main';
 import LoginRender from '../../pages/login/login';
 import RoomRender from '../../pages/room/room';
@@ -11,9 +11,12 @@ import PrivateRoute from '../private-route/private-route';
 type AppRenderProps = {
   placeSelection: number;
   offers: Offers;
+  city: City;
+  points: Points;
 }
 
-function App({placeSelection, offers}: AppRenderProps): JSX.Element {
+function App(props: AppRenderProps): JSX.Element {
+  const {placeSelection, offers, city, points} = props;
 
   return (
     <HelmetProvider>
@@ -25,6 +28,8 @@ function App({placeSelection, offers}: AppRenderProps): JSX.Element {
               <MainRender
                 placeSelection={placeSelection}
                 offers={offers}
+                city={city}
+                points={points}
               />
             }
           />

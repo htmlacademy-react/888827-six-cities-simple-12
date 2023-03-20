@@ -23,8 +23,8 @@ export const places: Offers = [
     images: 'img/apartment-01.jpg',
     isPremium: true,
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 8
     },
     maxAdults: 4,
@@ -38,8 +38,8 @@ export const places: Offers = [
     bedrooms: 1,
     city: {
       location: {
-        latitude: 53.370216,
-        longitude: 2.895168,
+        latitude: 52.370216,
+        longitude: 4.895168,
         zoom: 10
       },
       name: 'Amsterdam'
@@ -56,8 +56,8 @@ export const places: Offers = [
     images: 'img/apartment-02.jpg',
     isPremium: false,
     location: {
-      latitude: 53.35514938496378,
-      longitude: 2.673877537499948,
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
       zoom: 8
     },
     maxAdults: 4,
@@ -70,7 +70,7 @@ export const places: Offers = [
     bedrooms: 3,
     city: {
       location: {
-        latitude: 51.370216,
+        latitude: 52.370216,
         longitude: 4.895168,
         zoom: 10
       },
@@ -88,8 +88,8 @@ export const places: Offers = [
     images: 'img/apartment-03.jpg',
     isPremium: false,
     location: {
-      latitude: 51.35514938496378,
-      longitude: 4.673877537499948,
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
       zoom: 8
     },
     maxAdults: 4,
@@ -120,8 +120,8 @@ export const places: Offers = [
     images: 'img/apartment-04.jpg',
     isPremium: true,
     location: {
-      latitude: 52.35514938496378,
-      longitude: 5.673877537499948,
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
       zoom: 8
     },
     maxAdults: 4,

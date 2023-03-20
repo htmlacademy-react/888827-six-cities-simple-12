@@ -1,15 +1,20 @@
 import { Helmet } from 'react-helmet-async';
-import { Offers } from '../../types/offer';
+import { Offers, City, Points } from '../../types/offer';
 import Header from '../../components/header/header';
 import Locations from '../../components/locations/locations';
 import ListOffers from '../../components/list-offers/list-offers';
+import Map from '../../components/map/map';
 
 type MainRenderProps = {
   placeSelection: number;
   offers: Offers;
+  city: City;
+  points: Points;
 }
 
-function MainRender({placeSelection, offers}: MainRenderProps): JSX.Element {
+function MainRender(props: MainRenderProps): JSX.Element {
+  const {placeSelection, offers, city, points} = props;
+
   return (
     <body className="page page--gray page--main">
       <Helmet>
@@ -51,7 +56,9 @@ function MainRender({placeSelection, offers}: MainRenderProps): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map city={city} points={points} />
+              </section>
             </div>
           </div>
         </div>
