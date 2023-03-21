@@ -6,8 +6,8 @@ function Comment(): JSX.Element {
     review: '',
   });
 
-  const fieldChangeHandle = (evt : {target: {name: string; value: string | number }}) : void => {
-    const {name, value} = evt.target;
+  const fieldChangeHandle = (evt: React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLTextAreaElement>) : void => {
+    const {name, value} = evt.target as HTMLInputElement | HTMLTextAreaElement;
 
     setFormData({...formData, [name]: value});
   };
@@ -51,7 +51,7 @@ function Comment(): JSX.Element {
           </svg>
         </label>
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={fieldChangeHandle}></textarea>
+      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={fieldChangeHandle} value={formData.review}></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
