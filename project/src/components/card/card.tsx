@@ -3,16 +3,15 @@ import { Link } from 'react-router-dom';
 
 type CardProps = {
   offer: OfferCity;
-  activeId: number;
   onMouseOverHandler: (id: number) => void;
 }
 
-function Card({offer, activeId, onMouseOverHandler}: CardProps): JSX.Element {
+function Card({offer, onMouseOverHandler}: CardProps): JSX.Element {
   const {id, images, isPremium, price, rating, title, type} = offer;
   const visuallyRating = `${Math.round(rating) / 5 * 100}%`;
 
   return (
-    <article className={`cities__card place-card ${activeId === id ? 'active-card' : ''}`}>
+    <article className="cities__card place-card" onMouseOver={()=> onMouseOverHandler(id)}>
       {isPremium ? (
         <div className="place-card__mark">
           <span>Premium</span>
