@@ -1,22 +1,20 @@
 import { Offers } from '../../types/offer';
-import { useState } from 'react';
 import Card from '../card/card';
 
 type ListOffersProps = {
   offers: Offers;
+  onListItemHover: (onListItemName: number) => void;
 };
 
-function ListOffers({offers}: ListOffersProps): JSX.Element {
-  const [activeId, setActiveId] = useState(0);
+function ListOffers({offers, onListItemHover}: ListOffersProps): JSX.Element {
 
   return (
     <>
       {offers.map((offer) => (
         <Card
-          activeId={activeId}
           key={`${offer.id}`}
           offer={offer}
-          onMouseOverHandler={() => setActiveId(offer.id)}
+          onMouseOverHandler={(id) => onListItemHover(id)}
         />
       ))}
     </>

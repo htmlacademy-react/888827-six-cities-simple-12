@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
-import { Offers, City, Points } from '../../types/offer';
+import { Offers, City, OfferCity } from '../../types/offer';
+import { useState } from 'react';
 import Header from '../../components/header/header';
 import Locations from '../../components/locations/locations';
 import ListOffers from '../../components/list-offers/list-offers';
@@ -7,13 +8,23 @@ import Map from '../../components/map/map';
 
 type MainRenderProps = {
   placeSelection: number;
-  offers: Offers;
+  places: Offers;
   city: City;
-  points: Points;
 }
 
 function MainRender(props: MainRenderProps): JSX.Element {
-  const {placeSelection, offers, city, points} = props;
+  const {placeSelection, places, city} = props;
+
+  const [selectedPoint, setSelectedPoint] = useState<OfferCity | undefined> (
+    undefined
+  );
+
+  const onListItemHover = (id: number) => {
+    const currentPoint = places.find((offer) =>
+      offer.id === id,
+    );
+    setSelectedPoint(currentPoint);
+  };
 
   return (
     <body className="page page--gray page--main">
@@ -52,12 +63,12 @@ function MainRender(props: MainRenderProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <ListOffers offers={offers} />
+                <ListOffers offers={places} onListItemHover={onListItemHover}/>
               </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={city} points={points} />
+                <Map city={city} places={places} selectedPoint={selectedPoint}/>
               </section>
             </div>
           </div>
