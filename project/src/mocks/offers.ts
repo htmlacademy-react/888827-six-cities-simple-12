@@ -111,13 +111,13 @@ export const places: Offers = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: 'Heating',
     host: {
-      avatarUrl: 'img/apartment-04.jpg',
+      avatarUrl: 'img/room.jpg',
       id: 1,
       isPro: true,
       name: 'Olga',
     },
     id: 4,
-    images: 'img/apartment-04.jpg',
+    images: 'img/room.jpg',
     isPremium: true,
     location: {
       latitude: 52.3809553943508,
@@ -125,7 +125,7 @@ export const places: Offers = [
       zoom: 8
     },
     maxAdults: 4,
-    previewImage: 'img/apartment-04.jpg',
+    previewImage: 'img/room.jpg',
     price: 330,
     rating: 4.9,
     title: 'Park Plaza Victoria Amsterdam',

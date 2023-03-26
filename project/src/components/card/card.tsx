@@ -21,7 +21,7 @@ function Card({offer, onMouseOverHandler}: CardProps): JSX.Element {
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${id}`}>
-          <img className="place-card__image" src={images} width="260" height="200"/>
+          <img className="place-card__image" src={images} width="260" height="200" alt='' />
         </Link>
       </div>
       <div className="place-card__info">
