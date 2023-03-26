@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { places } from './mocks/offers';
 import { CITY } from './mocks/city';
+import { reviews } from './mocks/reviews';
 
 const Setting = {
   PlaceSelection: 320,
@@ -18,6 +19,7 @@ root.render(
       placeSelection = {Setting.PlaceSelection}
       places={places}
       city={CITY}
+      reviews={reviews}
     />
   </React.StrictMode>,
 );
