@@ -52,8 +52,8 @@ function Map(props: MapProps) {
 
   return (
     <div
-      style={{height: '866px'}}
       ref={mapRef}
+      style={{height: '866px'}}
     >
     </div>
   );
