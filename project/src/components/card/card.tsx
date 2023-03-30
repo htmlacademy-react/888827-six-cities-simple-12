@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 type CardProps = {
   offer: OfferCity;
   onMouseOverHandler: (id: number) => void;
-}
+};
 
 function Card({offer, onMouseOverHandler}: CardProps): JSX.Element {
   const {id, images, isPremium, price, rating, title, type} = offer;

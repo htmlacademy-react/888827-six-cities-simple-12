@@ -10,6 +10,8 @@ export enum AuthorizationStatus {
   Unknow = 'UNKNOW',
 }
 
+export const FIRST_CITY_STEP = 'Paris';
+
 export const URL_MARKER_DEFAULT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
 

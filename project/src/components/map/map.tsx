@@ -1,12 +1,11 @@
 import { useRef, useEffect } from 'react';
 import { Icon, Marker } from 'leaflet';
-import { City, OfferCity, Offers } from '../../types/offer';
+import { OfferCity, Offers } from '../../types/offer';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../const/const';
 import useMap from '../../hooks/useMap';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  city: City;
   places: Offers;
   selectedPoint: OfferCity | undefined;
 };
@@ -23,14 +22,38 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map(props: MapProps) {
-  const {city, selectedPoint, places} = props;
+function Map({places, selectedPoint }: MapProps) {
+
+  const offerCity = places.map((place) => {
+    const obj = {
+      name: place.city.name,
+      latitude: place.city.location.latitude,
+      longitude: place.city.location.longitude,
+      zoom: place.city.location.zoom,
+    };
+    return obj;
+  });
+
+  // const offerPins = places.map((place, index) => {
+  //   const obj = {
+  //     id: index,
+  //     lat: place.location.latitude,
+  //   };
+  //   return obj;
+  // });
+
+  const city = offerCity[0];
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {
+      // map.setView({
+      //   lat: city.latitude,
+      //   lng: city.longitude
+      // });
+
       places.forEach((point) => {
 
         const marker = new Marker({
@@ -48,12 +71,12 @@ function Map(props: MapProps) {
 
       });
     }
-  }, [map, places, selectedPoint]);
+  }, [map, places, selectedPoint, city]);
 
   return (
-    <div
+    <div className='cities__map map'
       ref={mapRef}
-      style={{height: '866px'}}
+      style={{height: 'inherit'}}
     >
     </div>
   );

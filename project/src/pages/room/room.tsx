@@ -1,8 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
-import { Offers, City, OfferCity } from '../../types/offer';
+import { OfferCity } from '../../types/offer';
 import { Review } from '../../types/review';
+import { useAppSelector } from '../../hooks/index';
 import Header from '../../components/header/header';
 import ReviewsList from '../../components/reviews/reviews-list';
 import Map from '../../components/map/map';
@@ -10,12 +11,12 @@ import ListOffers from '../../components/list-offers/list-offers';
 
 type RoomRenderProps = {
   reviews: Review[];
-  places: Offers;
-  city: City;
 }
 
 function RoomRender(props:RoomRenderProps): JSX.Element {
-  const {reviews, places, city} = props;
+  const {reviews} = props;
+
+  const places = useAppSelector((state) => state.offers);
 
   const [selectedPoint, setSelectedPoint] = useState<OfferCity | undefined> (
     undefined
@@ -135,8 +136,8 @@ function RoomRender(props:RoomRenderProps): JSX.Element {
                 <ReviewsList reviews={reviews}/>
               </div>
             </div>
-            <section className="property__map map" style={{height: '579px'}}>
-              <Map city={city} places={nearOffer} selectedPoint={selectedPoint}/>
+            <section className="property__map map">
+              <Map places={nearOffer} selectedPoint={selectedPoint}/>
             </section>
           </section>
           <div className="container">

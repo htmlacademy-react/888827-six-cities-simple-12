@@ -1,19 +1,18 @@
 import { Helmet } from 'react-helmet-async';
-import { Offers, City, OfferCity } from '../../types/offer';
-import { useState } from 'react';
+import { OfferCity } from '../../types/offer';
+import { useState, useEffect } from 'react';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { changeOffer } from '../../store/action';
 import Header from '../../components/header/header';
 import Locations from '../../components/locations/locations';
 import ListOffers from '../../components/list-offers/list-offers';
 import Map from '../../components/map/map';
 
-type MainRenderProps = {
-  placeSelection: number;
-  places: Offers;
-  city: City;
-}
+function MainRender(): JSX.Element {
 
-function MainRender(props: MainRenderProps): JSX.Element {
-  const {placeSelection, places, city} = props;
+  const places = useAppSelector((state) => state.offers);
+  const city = useAppSelector((state) => state.firstCity);
+  const visibleCity = useAppSelector((state) => state.firstCity);
 
   const [selectedPoint, setSelectedPoint] = useState<OfferCity | undefined> (
     undefined
@@ -25,6 +24,11 @@ function MainRender(props: MainRenderProps): JSX.Element {
     );
     setSelectedPoint(currentPoint);
   };
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(changeOffer({ checkCity: 'Paris' }));
+  }, [dispatch]);
 
   return (
     <body className="page page--gray page--main">
@@ -40,13 +44,13 @@ function MainRender(props: MainRenderProps): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <Locations />
+          <Locations value={city} visibleCity={visibleCity}/>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placeSelection} places to stay in Amsterdam</b>
+              <b className="places__found">{places.length} places to stay in {city}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -67,8 +71,8 @@ function MainRender(props: MainRenderProps): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map city={city} places={places} selectedPoint={selectedPoint}/>
+              <section className="cities__map map" style={{height: '866px'}}>
+                <Map places={places} selectedPoint={selectedPoint}/>
               </section>
             </div>
           </div>
