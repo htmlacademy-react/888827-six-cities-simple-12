@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
+//import { useState } from 'react';
 import { OfferCity } from '../../types/offer';
 import { Review } from '../../types/review';
 import { useAppSelector } from '../../hooks/index';
@@ -18,16 +18,16 @@ function RoomRender(props:RoomRenderProps): JSX.Element {
 
   const places = useAppSelector((state) => state.offers);
 
-  const [selectedPoint, setSelectedPoint] = useState<OfferCity | undefined> (
-    undefined
-  );
+  // const [selectedPoint, setSelectedPoint] = useState<OfferCity | undefined> (
+  //   undefined
+  // );
 
-  const onListItemHover = (id: number) => {
-    const currentPoint = places.find((offer) =>
-      offer.id === id,
-    );
-    setSelectedPoint(currentPoint);
-  };
+  // const onListItemHover = (id: number) => {
+  //   const currentPoint = places.find((offer) =>
+  //     offer.id === id,
+  //   );
+  //   setSelectedPoint(currentPoint);
+  // };
 
   const {id} = useParams();
   const roomOffers: OfferCity | undefined = places.find((offer) => offer.id === Number(id));
@@ -137,14 +137,14 @@ function RoomRender(props:RoomRenderProps): JSX.Element {
               </div>
             </div>
             <section className="property__map map">
-              <Map places={nearOffer} selectedPoint={selectedPoint}/>
+              <Map places={nearOffer} />
             </section>
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <ListOffers offers={nearOffer} onListItemHover={onListItemHover} />
+                <ListOffers offers={nearOffer} />
               </div>
             </section>
           </div>

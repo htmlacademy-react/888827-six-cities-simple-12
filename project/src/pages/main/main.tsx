@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
-import { OfferCity } from '../../types/offer';
-import { useState, useEffect } from 'react';
+//import { OfferCity } from '../../types/offer';
+import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { changeOffer } from '../../store/action';
 import Header from '../../components/header/header';
@@ -15,16 +15,16 @@ function MainRender(): JSX.Element {
 
   const LOCATIONS = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-  const [selectedPoint, setSelectedPoint] = useState<OfferCity | undefined> (
-    undefined
-  );
+  // const [selectedPoint, setSelectedPoint] = useState<OfferCity | undefined> (
+  //   undefined
+  // );
 
-  const onListItemHover = (id: number) => {
-    const currentPoint = places.find((offer) =>
-      offer.id === id,
-    );
-    setSelectedPoint(currentPoint);
-  };
+  // const onListItemHover = (id: number) => {
+  //   const currentPoint = places.find((offer) =>
+  //     offer.id === id,
+  //   );
+  //   setSelectedPoint(currentPoint);
+  // };
 
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -76,12 +76,12 @@ function MainRender(): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <ListOffers offers={places} onListItemHover={onListItemHover}/>
+                <ListOffers offers={places} />
               </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" style={{height: '866px'}}>
-                <Map places={places} selectedPoint={selectedPoint}/>
+                <Map places={places} />
               </section>
             </div>
           </div>

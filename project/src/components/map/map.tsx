@@ -1,13 +1,13 @@
 import { useRef, useEffect } from 'react';
 import { Icon, Marker } from 'leaflet';
-import { OfferCity, Offers } from '../../types/offer';
+import { Offers } from '../../types/offer';
+import { useAppSelector } from '../../hooks';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../const/const';
 import useMap from '../../hooks/useMap';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   places: Offers;
-  selectedPoint: OfferCity | undefined;
 };
 
 const defaultCustomIcon = new Icon({
@@ -22,7 +22,9 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map({places, selectedPoint }: MapProps) {
+function Map({places}: MapProps) {
+
+  const selectedPoint = useAppSelector((state) => state.selectPoint);
 
   const offerCity = places.map((place) => {
     const obj = {
@@ -34,13 +36,14 @@ function Map({places, selectedPoint }: MapProps) {
     return obj;
   });
 
-  // const offerPins = places.map((place, index) => {
-  //   const obj = {
-  //     id: index,
-  //     lat: place.location.latitude,
-  //   };
-  //   return obj;
-  // });
+  const offerPins = places.map((place, index) => {
+    const obj = {
+      id: index,
+      lat: place.location.latitude,
+      lng: place.location.longitude,
+    };
+    return obj;
+  });
 
   const city = offerCity[0];
 
@@ -49,21 +52,21 @@ function Map({places, selectedPoint }: MapProps) {
 
   useEffect(() => {
     if (map) {
-      // map.setView({
-      //   lat: city.latitude,
-      //   lng: city.longitude
-      // });
+      map.setView({
+        lat: city.latitude,
+        lng: city.longitude
+      });
 
-      places.forEach((point) => {
+      offerPins.forEach((point) => {
 
         const marker = new Marker({
-          lat: point.location.latitude,
-          lng: point.location.longitude
+          lat: point.lat,
+          lng: point.lng,
         });
 
         marker
           .setIcon(
-            selectedPoint !== undefined && point.id === selectedPoint.id
+            point.id === selectedPoint
               ? currentCustomIcon
               : defaultCustomIcon
           )
@@ -71,7 +74,7 @@ function Map({places, selectedPoint }: MapProps) {
 
       });
     }
-  }, [map, places, selectedPoint, city]);
+  }, [map, offerPins, selectedPoint, city]);
 
   return (
     <div className='cities__map map'

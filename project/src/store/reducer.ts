@@ -1,11 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, changeOffer } from './action';
+import { changeCity, changeOffer, selectPoint } from './action';
 import { FIRST_CITY_STEP } from '../components/const/const';
 import { places } from '../mocks/offers';
 
 const initialState = {
   firstCity: FIRST_CITY_STEP,
   offers: places,
+  selectPoint: 0,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -18,11 +19,11 @@ const reducer = createReducer(initialState, (builder) => {
       const {checkCity} = action.payload;
       const newOffer = places.filter((offer) => offer.city.name === checkCity);
       state.offers = newOffer;
+    })
+    .addCase(selectPoint, (state, action) => {
+      const {selectedPoint} = action.payload;
+      state.selectPoint = selectedPoint;
     });
-// .addCase(resetOffers, (state) => {
-//   state.offers = places;
-//   state.firstCity = FIRST_CITY_STEP;
-// });
 });
 
 export {reducer};

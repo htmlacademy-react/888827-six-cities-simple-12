@@ -1,17 +1,22 @@
 import { OfferCity } from '../../types/offer';
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { selectPoint } from '../../store/action';
 
 type CardProps = {
   offer: OfferCity;
-  onMouseOverHandler: (id: number) => void;
+  //onMouseOverHandler: (id: number) => void;
 };
 
-function Card({offer, onMouseOverHandler}: CardProps): JSX.Element {
+function Card({offer}: CardProps): JSX.Element {
   const {id, images, isPremium, price, rating, title, type} = offer;
   const visuallyRating = `${Math.round(rating) / 5 * 100}%`;
 
+  const dispatch = useAppDispatch();
+  const selectedPoint = useAppSelector((state) => state.selectPoint);
+
   return (
-    <article className="cities__card place-card" onMouseOver={()=> onMouseOverHandler(id)}>
+    <article className={`cities__card place-card ${selectedPoint === id ? 'active-card' : ''}`} onMouseOver={() => dispatch(selectPoint({selectedPoint: id}))}>
       {isPremium ? (
         <div className="place-card__mark">
           <span>Premium</span>

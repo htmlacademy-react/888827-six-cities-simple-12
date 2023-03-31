@@ -3,10 +3,10 @@ import Card from '../card/card';
 
 type ListOffersProps = {
   offers: Offers;
-  onListItemHover: (onListItemName: number) => void;
+  //onListItemHover: (onListItemName: number) => void;
 };
 
-function ListOffers({offers, onListItemHover}: ListOffersProps): JSX.Element {
+function ListOffers({offers}: ListOffersProps): JSX.Element {
 
   return (
     <>
@@ -14,7 +14,6 @@ function ListOffers({offers, onListItemHover}: ListOffersProps): JSX.Element {
         <Card
           key={`${offer.id}`}
           offer={offer}
-          onMouseOverHandler={(id) => onListItemHover(id)}
         />
       ))}
     </>
