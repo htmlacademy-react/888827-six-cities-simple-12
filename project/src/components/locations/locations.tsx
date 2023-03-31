@@ -7,9 +7,6 @@ type LocationsProps = {
   visibleCity: string;
 };
 
-const LOCATIONS = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
-
-
 function Locations ({value, visibleCity}: LocationsProps): JSX.Element {
 
   const dispatch = useAppDispatch();
@@ -20,21 +17,11 @@ function Locations ({value, visibleCity}: LocationsProps): JSX.Element {
   };
 
   return (
-    <section className="locations container">
-      <ul className="locations__list tabs__list">
-        {LOCATIONS.map((city)=>(
-          <li key={city} className="locations__item">
-            <Link
-              className="locations__item-link tabs__item"
-              to="/"
-              onClick={onClickСall}
-            >
-              <span>{value}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </section>
+    <Link to={'/'} className={`locations__item-link tabs__item ${visibleCity === value ? 'tabs__item--active' : ''}`}
+      onClick={onClickСall}
+    >
+      <span>{value}</span>
+    </Link>
   );
 }
 

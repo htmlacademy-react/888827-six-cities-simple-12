@@ -11,9 +11,9 @@ import Map from '../../components/map/map';
 function MainRender(): JSX.Element {
 
   const places = useAppSelector((state) => state.offers);
-  const city = useAppSelector((state) => state.firstCity);
+  //const city = useAppSelector((state) => state.firstCity);
   const visibleCity = useAppSelector((state) => state.firstCity);
-
+  const LOCATIONS = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
   const [selectedPoint, setSelectedPoint] = useState<OfferCity | undefined> (
     undefined
   );
@@ -44,13 +44,21 @@ function MainRender(): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <Locations value={city} visibleCity={visibleCity}/>
+          <section className="locations container">
+            <ul className="locations__list tabs__list">
+              {LOCATIONS.map((city, id)=>(
+                <li key={`${id * 10}-city`} className="locations__item">
+                  <Locations value={city} visibleCity={visibleCity}/>
+                </li>
+              ))}
+            </ul>
+          </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{places.length} places to stay in {city}</b>
+              <b className="places__found">{places.length} places to stay in </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
