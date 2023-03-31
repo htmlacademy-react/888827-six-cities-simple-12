@@ -11,9 +11,10 @@ import Map from '../../components/map/map';
 function MainRender(): JSX.Element {
 
   const places = useAppSelector((state) => state.offers);
-  //const city = useAppSelector((state) => state.firstCity);
   const visibleCity = useAppSelector((state) => state.firstCity);
+
   const LOCATIONS = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
   const [selectedPoint, setSelectedPoint] = useState<OfferCity | undefined> (
     undefined
   );
@@ -58,7 +59,7 @@ function MainRender(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{places.length} places to stay in </b>
+              <b className="places__found">{places.length} places to stay in {visibleCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
