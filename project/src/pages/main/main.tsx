@@ -32,7 +32,7 @@ function MainRender(): JSX.Element {
   }, [dispatch]);
 
   return (
-    <body className="page page--gray page--main">
+    <>
       <Helmet>
         <title>Choose your city</title>
       </Helmet>
@@ -87,7 +87,7 @@ function MainRender(): JSX.Element {
           </div>
         </div>
       </main>
-    </body>
+    </>
   );
 }
 
