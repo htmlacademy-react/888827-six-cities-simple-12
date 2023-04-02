@@ -44,7 +44,7 @@ function RoomRender(props:RoomRenderProps): JSX.Element {
   const nearOffer = places.filter((item) => item.id !== Number(id));
 
   return (
-    <body>
+    <>
       <Helmet>
         <title>Apartment</title>
       </Helmet>
@@ -150,7 +150,7 @@ function RoomRender(props:RoomRenderProps): JSX.Element {
           </div>
         </main>
       </div>
-    </body>
+    </>
   );
 }
 

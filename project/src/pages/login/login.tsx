@@ -4,7 +4,7 @@ import Logo from '../../components/logo/logo';
 
 function LoginRender(): JSX.Element {
   return (
-    <body>
+    <>
       <Helmet>
         <title>Sign in</title>
       </Helmet>
@@ -47,7 +47,7 @@ function LoginRender(): JSX.Element {
           </div>
         </main>
       </div>
-    </body>
+    </>
   );
 }
 

@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-//import { OfferCity } from '../../types/offer';
 import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { changeOffer } from '../../store/action';
@@ -9,22 +8,10 @@ import ListOffers from '../../components/list-offers/list-offers';
 import Map from '../../components/map/map';
 
 function MainRender(): JSX.Element {
+  const LOCATIONS = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
   const places = useAppSelector((state) => state.offers);
   const visibleCity = useAppSelector((state) => state.firstCity);
-
-  const LOCATIONS = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
-
-  // const [selectedPoint, setSelectedPoint] = useState<OfferCity | undefined> (
-  //   undefined
-  // );
-
-  // const onListItemHover = (id: number) => {
-  //   const currentPoint = places.find((offer) =>
-  //     offer.id === id,
-  //   );
-  //   setSelectedPoint(currentPoint);
-  // };
 
   const dispatch = useAppDispatch();
   useEffect(() => {

@@ -36,9 +36,9 @@ function Map({places}: MapProps) {
     return obj;
   });
 
-  const offerPins = places.map((place, index) => {
+  const offerPins = places.map((place) => {
     const obj = {
-      id: index,
+      id: place.id,
       lat: place.location.latitude,
       lng: place.location.longitude,
     };

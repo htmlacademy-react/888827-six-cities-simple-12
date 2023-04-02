@@ -17,8 +17,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(changeOffer, (state, action) => {
       const {checkCity} = action.payload;
-      const newOffer = places.filter((offer) => offer.city.name === checkCity);
-      state.offers = newOffer;
+      state.offers = places.filter((offer) => offer.city.name === checkCity);
     })
     .addCase(selectPoint, (state, action) => {
       const {selectedPoint} = action.payload;
