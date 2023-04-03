@@ -52,13 +52,11 @@ function Map({places}: MapProps) {
 
   useEffect(() => {
     if (map) {
-      map.setView({
-        lat: city.latitude,
-        lng: city.longitude
-      });
-
       offerPins.forEach((point) => {
-
+        map.setView({
+          lat: city.latitude,
+          lng: city.longitude
+        });
         const marker = new Marker({
           lat: point.lat,
           lng: point.lng,

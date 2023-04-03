@@ -36,7 +36,7 @@ function MainRender(): JSX.Element {
             <ul className="locations__list tabs__list">
               {LOCATIONS.map((city, id)=>(
                 <li key={`${id * 10}-city`} className="locations__item">
-                  <Locations value={city} visibleCity={visibleCity}/>
+                  <Locations value={city} visibleCity={visibleCity} />
                 </li>
               ))}
             </ul>
@@ -67,7 +67,7 @@ function MainRender(): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" style={{height: '866px'}}>
+              <section className="cities__map map" style={{height: '819px'}}>
                 <Map places={places} />
               </section>
             </div>
