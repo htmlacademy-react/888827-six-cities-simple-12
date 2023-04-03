@@ -1,20 +1,27 @@
 import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/index';
+import { changeCity, changeOffer } from '../../store/action';
 
-const LOCATIONS = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+type LocationsProps = {
+  value: string;
+  visibleCity: string;
+};
 
-function Locations (): JSX.Element {
+function Locations ({value, visibleCity}: LocationsProps): JSX.Element {
+
+  const dispatch = useAppDispatch();
+
+  const onClickСall = (): void => {
+    dispatch(changeCity({visibleCity: value}));
+    dispatch(changeOffer({checkCity: value}));
+  };
+
   return (
-    <section className="locations container">
-      <ul className="locations__list tabs__list">
-        {LOCATIONS.map((city)=>(
-          <li key={city} className="locations__item">
-            <Link className="locations__item-link tabs__item" to="/">
-              <span>{city}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </section>
+    <Link to={'/'} className={`locations__item-link tabs__item ${visibleCity === value ? 'tabs__item--active' : ''}`}
+      onClick={onClickСall}
+    >
+      <span>{value}</span>
+    </Link>
   );
 }
 

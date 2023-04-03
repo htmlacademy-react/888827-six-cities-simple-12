@@ -1,8 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
-import { Offers, City, OfferCity } from '../../types/offer';
+//import { useState } from 'react';
+import { OfferCity } from '../../types/offer';
 import { Review } from '../../types/review';
+import { useAppSelector } from '../../hooks/index';
 import Header from '../../components/header/header';
 import ReviewsList from '../../components/reviews/reviews-list';
 import Map from '../../components/map/map';
@@ -10,23 +11,23 @@ import ListOffers from '../../components/list-offers/list-offers';
 
 type RoomRenderProps = {
   reviews: Review[];
-  places: Offers;
-  city: City;
 }
 
 function RoomRender(props:RoomRenderProps): JSX.Element {
-  const {reviews, places, city} = props;
+  const {reviews} = props;
 
-  const [selectedPoint, setSelectedPoint] = useState<OfferCity | undefined> (
-    undefined
-  );
+  const places = useAppSelector((state) => state.offers);
 
-  const onListItemHover = (id: number) => {
-    const currentPoint = places.find((offer) =>
-      offer.id === id,
-    );
-    setSelectedPoint(currentPoint);
-  };
+  // const [selectedPoint, setSelectedPoint] = useState<OfferCity | undefined> (
+  //   undefined
+  // );
+
+  // const onListItemHover = (id: number) => {
+  //   const currentPoint = places.find((offer) =>
+  //     offer.id === id,
+  //   );
+  //   setSelectedPoint(currentPoint);
+  // };
 
   const {id} = useParams();
   const roomOffers: OfferCity | undefined = places.find((offer) => offer.id === Number(id));
@@ -43,7 +44,7 @@ function RoomRender(props:RoomRenderProps): JSX.Element {
   const nearOffer = places.filter((item) => item.id !== Number(id));
 
   return (
-    <body>
+    <>
       <Helmet>
         <title>Apartment</title>
       </Helmet>
@@ -135,21 +136,21 @@ function RoomRender(props:RoomRenderProps): JSX.Element {
                 <ReviewsList reviews={reviews}/>
               </div>
             </div>
-            <section className="property__map map" style={{height: '579px'}}>
-              <Map city={city} places={nearOffer} selectedPoint={selectedPoint}/>
+            <section className="property__map map">
+              <Map places={nearOffer} />
             </section>
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <ListOffers offers={nearOffer} onListItemHover={onListItemHover} />
+                <ListOffers offers={nearOffer} />
               </div>
             </section>
           </div>
         </main>
       </div>
-    </body>
+    </>
   );
 }
 

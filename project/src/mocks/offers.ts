@@ -130,5 +130,70 @@ export const places: Offers = [
     rating: 4.9,
     title: 'Park Plaza Victoria Amsterdam',
     type: 'Apartment',
+  }, {
+    bedrooms: 3,
+    city: {
+      location: {
+        latitude: 48.8534,
+        longitude: 2.3488,
+        zoom: 10
+      },
+      name: 'Paris'
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: 'Heating',
+    host: {
+      avatarUrl: 'img/apartment-01.jpg',
+      id: 3,
+      isPro: true,
+      name: 'Angelina',
+    },
+    id: 5,
+    images: 'img/apartment-01.jpg',
+    isPremium: true,
+    location: {
+      latitude: 48.8534153943508,
+      longitude: 2.37889666406198,
+      zoom: 8
+    },
+    maxAdults: 4,
+    previewImage: 'img/apartment-01.jpg',
+    price: 120,
+    rating: 4.0,
+    title: 'Beautiful luxurious apartment at great location',
+    type: 'Apartment',
+  },
+  {
+    bedrooms: 1,
+    city: {
+      location: {
+        latitude: 48.8534,
+        longitude: 2.3488,
+        zoom: 10
+      },
+      name: 'Paris'
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: 'Heating',
+    host: {
+      avatarUrl: 'img/apartment-02.jpg',
+      id: 2,
+      isPro: true,
+      name: 'Roman',
+    },
+    id: 6,
+    images: 'img/apartment-02.jpg',
+    isPremium: false,
+    location: {
+      latitude: 48.8534953943508,
+      longitude: 2.34889666406198,
+      zoom: 8
+    },
+    maxAdults: 4,
+    previewImage: 'img/apartment-02.jpg',
+    price: 90,
+    rating: 3.9,
+    title: 'Best Western Blue Tower Hotel',
+    type: 'Room',
   },
 ];

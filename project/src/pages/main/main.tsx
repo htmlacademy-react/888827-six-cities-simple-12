@@ -1,33 +1,18 @@
 import { Helmet } from 'react-helmet-async';
-import { Offers, City, OfferCity } from '../../types/offer';
-import { useState } from 'react';
+import { useAppSelector } from '../../hooks';
 import Header from '../../components/header/header';
 import Locations from '../../components/locations/locations';
 import ListOffers from '../../components/list-offers/list-offers';
 import Map from '../../components/map/map';
 
-type MainRenderProps = {
-  placeSelection: number;
-  places: Offers;
-  city: City;
-}
+function MainRender(): JSX.Element {
+  const LOCATIONS = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-function MainRender(props: MainRenderProps): JSX.Element {
-  const {placeSelection, places, city} = props;
-
-  const [selectedPoint, setSelectedPoint] = useState<OfferCity | undefined> (
-    undefined
-  );
-
-  const onListItemHover = (id: number) => {
-    const currentPoint = places.find((offer) =>
-      offer.id === id,
-    );
-    setSelectedPoint(currentPoint);
-  };
+  const places = useAppSelector((state) => state.offers);
+  const visibleCity = useAppSelector((state) => state.firstCity);
 
   return (
-    <body className="page page--gray page--main">
+    <>
       <Helmet>
         <title>Choose your city</title>
       </Helmet>
@@ -40,13 +25,21 @@ function MainRender(props: MainRenderProps): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <Locations />
+          <section className="locations container">
+            <ul className="locations__list tabs__list">
+              {LOCATIONS.map((city, id)=>(
+                <li key={`${id * 10}-city`} className="locations__item">
+                  <Locations value={city} visibleCity={visibleCity} />
+                </li>
+              ))}
+            </ul>
+          </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placeSelection} places to stay in Amsterdam</b>
+              <b className="places__found">{places.length} places to stay in {visibleCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -63,18 +56,18 @@ function MainRender(props: MainRenderProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <ListOffers offers={places} onListItemHover={onListItemHover}/>
+                <ListOffers offers={places} />
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map city={city} places={places} selectedPoint={selectedPoint}/>
+              <section className="cities__map map" style={{height: '819px'}}>
+                <Map places={places} />
               </section>
             </div>
           </div>
         </div>
       </main>
-    </body>
+    </>
   );
 }
 
