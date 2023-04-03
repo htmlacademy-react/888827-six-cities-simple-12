@@ -1,7 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '../../hooks';
-import { changeOffer } from '../../store/action';
+import { useAppSelector } from '../../hooks';
 import Header from '../../components/header/header';
 import Locations from '../../components/locations/locations';
 import ListOffers from '../../components/list-offers/list-offers';
@@ -12,11 +10,6 @@ function MainRender(): JSX.Element {
 
   const places = useAppSelector((state) => state.offers);
   const visibleCity = useAppSelector((state) => state.firstCity);
-
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(changeOffer({ checkCity: 'Paris' }));
-  }, [dispatch]);
 
   return (
     <>

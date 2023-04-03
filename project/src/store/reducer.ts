@@ -3,9 +3,11 @@ import { changeCity, changeOffer, selectPoint } from './action';
 import { FIRST_CITY_STEP } from '../components/const/const';
 import { places } from '../mocks/offers';
 
+const FIRST_CITY_OFFERS = places.filter((offer) => offer.city.name === 'Paris');
+
 const initialState = {
   firstCity: FIRST_CITY_STEP,
-  offers: places,
+  offers: FIRST_CITY_OFFERS,
   selectPoint: 0,
 };
 
