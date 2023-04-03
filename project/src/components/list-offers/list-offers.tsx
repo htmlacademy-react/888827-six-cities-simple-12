@@ -3,7 +3,6 @@ import Card from '../card/card';
 
 type ListOffersProps = {
   offers: Offers;
-  //onListItemHover: (onListItemName: number) => void;
 };
 
 function ListOffers({offers}: ListOffersProps): JSX.Element {

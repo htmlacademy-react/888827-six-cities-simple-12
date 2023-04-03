@@ -5,7 +5,6 @@ import { selectPoint } from '../../store/action';
 
 type CardProps = {
   offer: OfferCity;
-  //onMouseOverHandler: (id: number) => void;
 };
 
 function Card({offer}: CardProps): JSX.Element {

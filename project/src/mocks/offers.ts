@@ -63,7 +63,7 @@ export const places: Offers = [
     maxAdults: 4,
     previewImage: 'img/apartment-02.jpg',
     price: 90,
-    rating: 3.9,
+    rating: 3.0,
     title: 'Best Western Blue Tower Hotel',
     type: 'Room',
   }, {
@@ -95,7 +95,7 @@ export const places: Offers = [
     maxAdults: 4,
     previewImage: 'img/apartment-03.jpg',
     price: 170,
-    rating: 4.5,
+    rating: 2.5,
     title: 'Avenue Hotel',
     type: 'Apartment',
   }, {
@@ -103,7 +103,7 @@ export const places: Offers = [
     city: {
       location: {
         latitude: 52.370216,
-        longitude: 5.895168,
+        longitude: 4.895168,
         zoom: 10
       },
       name: 'Amsterdam'
@@ -120,8 +120,8 @@ export const places: Offers = [
     images: 'img/room.jpg',
     isPremium: true,
     location: {
-      latitude: 52.3809553943508,
-      longitude: 4.939309666406198,
+      latitude: 52.3709553944508,
+      longitude: 4.939329666406198,
       zoom: 8
     },
     maxAdults: 4,
@@ -192,7 +192,7 @@ export const places: Offers = [
     maxAdults: 4,
     previewImage: 'img/apartment-02.jpg',
     price: 90,
-    rating: 3.9,
+    rating: 4.9,
     title: 'Best Western Blue Tower Hotel',
     type: 'Room',
   },
