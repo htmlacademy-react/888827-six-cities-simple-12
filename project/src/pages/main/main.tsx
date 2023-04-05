@@ -1,16 +1,27 @@
 import { Helmet } from 'react-helmet-async';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { useEffect } from 'react';
+import { changeOffer } from '../../store/action';
 import Header from '../../components/header/header';
 import Locations from '../../components/locations/locations';
 import ListOffers from '../../components/list-offers/list-offers';
 import Map from '../../components/map/map';
 import SortOptions from '../../components/sort-options/sort-options';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 function MainRender(): JSX.Element {
   const LOCATIONS = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
   const places = useAppSelector((state) => state.offers);
   const visibleCity = useAppSelector((state) => state.firstCity);
+  const loading = useAppSelector((state) => state.isOffersDataLoading);
+
+  const data = useAppSelector((state) => state.data);
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(changeOffer({ checkCity: 'Paris' }));
+  }, [data]);
 
   return (
     <>
@@ -36,23 +47,31 @@ function MainRender(): JSX.Element {
             </ul>
           </section>
         </div>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{places.length} places to stay in {visibleCity}</b>
-              <SortOptions />
-              <div className="cities__places-list places__list tabs__content">
-                <ListOffers offers={places} />
-              </div>
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map" style={{height: '819px'}}>
-                <Map places={places} />
+        {!loading ? (
+          <div className="cities">
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{places.length} places to stay in {visibleCity}</b>
+                <SortOptions />
+                <div className="cities__places-list places__list tabs__content">
+                  {!loading ? (
+                    <ListOffers offers={places} />
+                  ) : (
+                    <LoadingScreen />
+                  )}
+                </div>
               </section>
+              <div className="cities__right-section">
+                <section className="cities__map map" style={{height: '819px'}}>
+                  <Map places={places} />
+                </section>
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <LoadingScreen />
+        )};
       </main>
     </>
   );

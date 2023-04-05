@@ -15,18 +15,10 @@ function SortOptions():JSX.Element {
 
   const sortType = useAppSelector((state) => state.sortType);
 
-  const openPopup = () => {
-    if (isOpen) {
-      return setIsOpen(false);
-    } else {
-      return setIsOpen(true);
-    }
-  };
-
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex={0} onClick={openPopup}>
+      <span className="places__sorting-type" tabIndex={0} onClick={() => setIsOpen(!isOpen)}>
         {sortType}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>

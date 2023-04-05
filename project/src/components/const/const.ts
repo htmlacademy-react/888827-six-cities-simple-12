@@ -7,7 +7,14 @@ export enum AppRoute {
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
-  Unknow = 'UNKNOW',
+  Unknown = 'UNKNOWN',
+}
+
+export enum APIRoute {
+  Offers = '/hotels',
+  Comments = '/comments',
+  Login = '/login',
+  Logout = '/logout',
 }
 
 export const FIRST_CITY_STEP = 'Paris';
