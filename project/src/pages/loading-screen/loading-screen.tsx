@@ -1,6 +1,10 @@
 function LoadingScreen(): JSX.Element {
   return (
-    <p>Loading ...</p>
+    <div className="loading__container" style={{margin: '0 auto'}}>
+      <p className="loading__text">
+        Loading ...
+      </p>
+    </div>
   );
 }
 

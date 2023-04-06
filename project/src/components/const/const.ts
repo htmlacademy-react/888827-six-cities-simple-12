@@ -20,7 +20,13 @@ export enum APIRoute {
 export const FIRST_CITY_STEP = 'Paris';
 
 export const URL_MARKER_DEFAULT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+  'img/pin.svg';
 
 export const URL_MARKER_CURRENT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+  'img/pin-active.svg';
+
+export const BACKEND_URL = 'https://12.react.pages.academy/six-cities-simple';
+export const REQUEST_TIMEOUT = 5000;
+
+export const LOCATIONS = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+export const OPTIONS = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];

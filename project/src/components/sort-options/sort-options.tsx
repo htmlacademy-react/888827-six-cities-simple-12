@@ -1,8 +1,7 @@
-import { useState } from 'react';
-import { changeOption } from '../../store/action';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-
-const OPTIONS = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
+import {useState} from 'react';
+import {changeOption} from '../../store/action';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {OPTIONS} from '../const/const';
 
 function SortOptions():JSX.Element {
   const [isOpen, setIsOpen] = useState(false);

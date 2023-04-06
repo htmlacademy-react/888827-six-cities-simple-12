@@ -1,26 +1,27 @@
 import {Route, Routes} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../const/const';
+import {AppRoute} from '../const/const';
 import {HelmetProvider} from 'react-helmet-async';
-import {Review} from '../../types/review';
 import {useAppSelector} from '../../hooks';
+import {Review} from '../../types/review';
 import MainRender from '../../pages/main/main';
 import LoginRender from '../../pages/login/login';
 import RoomRender from '../../pages/room/room';
 import PageError from '../page-error/page-error';
-import PrivateRoute from '../private-route/private-route';
-import LoadingScreen from '../../pages/loading-screen/loading-screen';
+//import PrivateRoute from '../private-route/private-route';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import Layout from '../../pages/layout';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 type AppRenderProps = {
   reviews: Review[];
 }
 
 function App({reviews}: AppRenderProps): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  //const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
 
-  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+  if (isOffersDataLoading) {
     return (
       <LoadingScreen />
     );
@@ -30,29 +31,25 @@ function App({reviews}: AppRenderProps): JSX.Element {
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
         <Routes>
-          <Route
-            path={AppRoute.Main}
-            element={
-              <MainRender />
-            }
-          />
+          <Route path='/' element={<Layout />}>
+            <Route
+              path={AppRoute.Main}
+              element={
+                <MainRender />
+              }
+            />
+            <Route
+              path={AppRoute.Room}
+              element={<RoomRender reviews={reviews} />}
+            />
+            <Route
+              path="*"
+              element={<PageError />}
+            />
+          </Route>
           <Route
             path={AppRoute.Login}
-            element={
-              <PrivateRoute
-                authorizationStatus={authorizationStatus}
-              >
-                <LoginRender />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={AppRoute.Room}
-            element={<RoomRender reviews={reviews} />}
-          />
-          <Route
-            path="*"
-            element={<PageError />}
+            element={<LoginRender />}
           />
         </Routes>
       </HistoryRouter>

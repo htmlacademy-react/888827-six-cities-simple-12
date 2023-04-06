@@ -8,7 +8,7 @@ type CardProps = {
 };
 
 function Card({offer}: CardProps): JSX.Element {
-  const {id, images, isPremium, price, rating, title, type} = offer;
+  const {id, previewImage, isPremium, price, rating, title, type} = offer;
   const visuallyRating = `${Math.round(rating) / 5 * 100}%`;
 
   const dispatch = useAppDispatch();
@@ -25,7 +25,7 @@ function Card({offer}: CardProps): JSX.Element {
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${id}`}>
-          <img className="place-card__image" src={images} width="260" height="200" alt='' />
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt='' />
         </Link>
       </div>
       <div className="place-card__info">
