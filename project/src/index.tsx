@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import {ToastContainer} from 'react-toastify';
 import {reviews} from './mocks/reviews';
 import {store} from './store';
 import {Provider} from 'react-redux';
 import {fetchOfferAction, checkAuthAction} from './store/api-actions';
+import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 store.dispatch(fetchOfferAction());
@@ -19,10 +19,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ToastContainer />
-      <App
-        //передачу можно будет удалить
-        reviews={reviews}
-      />
+      <App reviews={reviews} />
     </Provider>
   </React.StrictMode>,
 );
