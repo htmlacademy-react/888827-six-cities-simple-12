@@ -1,25 +1,36 @@
-import { Review } from '../../types/review';
+import {useEffect, useState} from 'react';
+import {useAppSelector} from '../../hooks';
+import {Reviews} from '../../types/review';
+import {MAX_COUNT_REVIEWS} from '../const/const';
 import ReviewsItem from '../../components/reviews/reviews-item';
-import Comment from '../../components/comment/comment';
-//import Rating from '../../components/rating/rating';
+import ReviewsSort from '../../components/reviews/reviews-sort';
 
-type ReviewsListProps = {
-  reviews: Review[];
-}
+function ReviewsList():JSX.Element {
+  const reviews = useAppSelector((state) => state.reviews);
+  const [currentReviews, setCurrentReviews] = useState<Reviews>([]);
 
-function ReviewsList({reviews}:ReviewsListProps):JSX.Element {
+  useEffect(() => {
+    setCurrentReviews(reviews);
+  }, [reviews]);
+
+  const comments = ReviewsSort(currentReviews).slice(0, MAX_COUNT_REVIEWS).map((comment) => (
+    <ReviewsItem
+      key={comment.id}
+      comment={comment.comment}
+      date={comment.date}
+      id={comment.id}
+      rating={comment.rating}
+      user={comment.user}
+    />)
+  );
+
   return (
-    <section className="property__reviews reviews">
+    <>
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
       <ul className="reviews__list">
-        {reviews.map((review, id) => (
-          <li key={`${id * 10}`} className="reviews__item">
-            <ReviewsItem review={review} />
-          </li>
-        ))}
+        {comments}
       </ul>
-      <Comment />
-    </section>
+    </>
   );
 }
 

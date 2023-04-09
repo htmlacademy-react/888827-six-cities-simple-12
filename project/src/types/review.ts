@@ -1,10 +1,14 @@
 export type Review = {
+  comment: string;
+  date: string;
   id: number;
-  images: string;
-  name: string;
   rating: number;
-  time: string;
-  text: string;
+  user: {
+    avatarUrl: string;
+    id: number;
+    isPro: boolean;
+    name: string;
+  };
 };
 
 export type Reviews = Review[];

@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import {useState} from 'react';
+import {RATINGS} from '../const/const';
 import Rating from '../rating/rating';
 
-function Comment(): JSX.Element {
+function RewiewsForm(): JSX.Element {
+
   const [formData, setFormData] = useState({
     rating: '',
-    review: '',
+    review: ''
   });
-
-  const ratings = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
 
   const fieldChangeHandle = (evt: HTMLInputElement) => {
     const {name, value,} = evt;
@@ -25,7 +25,7 @@ function Comment(): JSX.Element {
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {ratings.map((rating, id) => (
+        {RATINGS.map((rating, id) => (
           <Rating onChange={fieldChangeHandle} key={`${id * 10}`} title={rating} id={id} value={id} />
         ))}
       </div>
@@ -40,4 +40,4 @@ function Comment(): JSX.Element {
   );
 }
 
-export default Comment;
+export default RewiewsForm;

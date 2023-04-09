@@ -1,5 +1,6 @@
 import {createAction} from '@reduxjs/toolkit';
 import {Offers} from '../types/offer';
+import {Review, Reviews} from '../types/review';
 import {UserData} from '../types/user-data';
 import {AppRoute, AuthorizationStatus} from '../components/const/const';
 
@@ -14,6 +15,10 @@ export const selectPoint = createAction<{selectedPoint: number}>('offer/selectPo
 export const changeOption = createAction<{sortType: string}>('offer/changeOption');
 
 export const loadOffers = createAction<Offers>('data/loadOffers');
+
+export const loadReviews = createAction<Reviews>('data/loadReviews');
+
+export const loadNextReview = createAction<Review>('data/loadNextReview');
 
 export const setOffersDataLoadingStatus = createAction<boolean>('data/setOffersDataLoadingStatus');
 

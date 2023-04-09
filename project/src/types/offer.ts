@@ -29,7 +29,7 @@ export type OfferCity = {
   goods: string;
   host: Host;
   id: number;
-  images: string;
+  images: string[];
   isPremium: boolean;
   location: Point;
   maxAdults: number;
