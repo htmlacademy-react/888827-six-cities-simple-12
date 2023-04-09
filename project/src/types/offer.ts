@@ -26,7 +26,7 @@ export type OfferCity = {
   bedrooms: number;
   city: NameCity;
   description: string;
-  goods: string;
+  goods: string[];
   host: Host;
   id: number;
   images: string[];

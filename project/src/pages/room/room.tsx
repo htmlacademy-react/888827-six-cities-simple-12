@@ -9,12 +9,35 @@ import Map from '../../components/map/map';
 import ListOffers from '../../components/list-offers/list-offers';
 import PropertyGallery from '../../components/property-gallery/property-gallery';
 
-function RoomRender(): JSX.Element {
+import { useAppDispatch } from '../../hooks';
+import { fetchReviewsAction } from '../../store/api-actions';
+import { useEffect, useState } from 'react';
+import {Offers} from '../../types/offer';
 
-  const places = useAppSelector((state) => state.offers);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+function RoomRender(): JSX.Element {
+  const dispatch = useAppDispatch();
 
   const {id} = useParams() as {id: string};
+
+  const hotelId = Number(id);
+  const [, setCurrentOffer] = useState<Offers | null>(null);
+  const places = useAppSelector((state) => state.offers);
+
+  useEffect(() => {
+    setCurrentOffer(places);
+  }, [places, dispatch]);
+
+  useEffect(() => {
+    if (isNaN(hotelId)) {
+      setCurrentOffer(null);
+    }else {
+      dispatch(fetchReviewsAction({ id : hotelId }));
+    }
+  }, [id, hotelId, dispatch]);
+
+
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
   const roomOffers: OfferCity | undefined = places.find((offer) => offer.id === Number(id));
   if (!roomOffers) {
     return <>Page not Found</>;
@@ -29,7 +52,6 @@ function RoomRender(): JSX.Element {
   const GOODS = ['Heating', 'WiFi', 'Cabel TV', 'Coffee machine', 'Kitchen'];
 
   const nearOffer = places.filter((item) => item.id !== Number(id));
-
 
   return (
     <>

@@ -5,6 +5,7 @@ import {MAX_COUNT_REVIEWS} from '../const/const';
 import ReviewsItem from '../../components/reviews/reviews-item';
 import ReviewsSort from '../../components/reviews/reviews-sort';
 
+
 function ReviewsList():JSX.Element {
   const reviews = useAppSelector((state) => state.reviews);
   const [currentReviews, setCurrentReviews] = useState<Reviews>([]);
