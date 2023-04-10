@@ -9,7 +9,7 @@ function ReviewsItem(review: Review):JSX.Element {
   const reviewDateTime = review.date.substring(0, 10);
 
   return (
-    <>
+    <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img className="reviews__avatar user__avatar" src={review.user.avatarUrl} width="54" height="54" alt="Reviews avatar" />
@@ -30,7 +30,7 @@ function ReviewsItem(review: Review):JSX.Element {
         </p>
         <time className="reviews__time" dateTime={reviewDateTime}>{reviewTime}</time>
       </div>
-    </>
+    </li>
   );
 }
 

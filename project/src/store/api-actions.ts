@@ -1,11 +1,11 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
-import {Offers} from '../types/offer';
+import {Offers, OfferCity} from '../types/offer';
 import {Review, Reviews} from '../types/review';
 import {ReviewData} from '../types/review-data';
 import {OfferId} from '../types/offer-id';
-import {loadOffers, loadReviews, loadNextReview, requireAuthorization, setOffersDataLoadingStatus, redirectToRoute, setUserData} from './action';
+import {loadOffers, loadReviews, loadOfferById, loadNextReview, requireAuthorization, setOffersDataLoadingStatus, redirectToRoute, setUserData} from './action';
 import {saveToken, dropToken} from '../services/token';
 import {APIRoute, AuthorizationStatus, AppRoute} from '../components/const/const';
 import {AuthData} from '../types/auth-data';
@@ -67,6 +67,18 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     dropToken();
     dispatch(setUserData(null));
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+  },
+);
+
+export const fetchOfferByIdAction = createAsyncThunk<void, OfferId, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchOfferById',
+  async ({id}, {dispatch, extra: api}) => {
+    const {data} = await api.get<OfferCity>(`${APIRoute.Offers}/${id}`);
+    dispatch(loadOfferById(data));
   },
 );
 

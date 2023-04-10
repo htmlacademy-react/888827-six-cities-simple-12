@@ -2,17 +2,16 @@ import {Helmet} from 'react-helmet-async';
 import {useParams} from 'react-router-dom';
 import {OfferCity} from '../../types/offer';
 import {useAppSelector} from '../../hooks/index';
+import {useEffect, useState} from 'react';
+import {useAppDispatch} from '../../hooks';
 import {AuthorizationStatus} from '../../components/const/const';
+import {fetchReviewsAction, fetchOfferByIdAction } from '../../store/api-actions';
+import {Offers} from '../../types/offer';
 import ReviewsList from '../../components/reviews/reviews-list';
 import ReviewsForm from '../../components/reviews/reviews-form';
 import Map from '../../components/map/map';
 import ListOffers from '../../components/list-offers/list-offers';
 import PropertyGallery from '../../components/property-gallery/property-gallery';
-
-import { useAppDispatch } from '../../hooks';
-import { fetchReviewsAction } from '../../store/api-actions';
-import { useEffect, useState } from 'react';
-import {Offers} from '../../types/offer';
 
 function RoomRender(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -32,6 +31,7 @@ function RoomRender(): JSX.Element {
       setCurrentOffer(null);
     }else {
       dispatch(fetchReviewsAction({ id : hotelId }));
+      dispatch(fetchOfferByIdAction({ id : hotelId }));
     }
   }, [id, hotelId, dispatch]);
 

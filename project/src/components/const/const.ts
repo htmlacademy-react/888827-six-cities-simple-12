@@ -21,6 +21,9 @@ export const FIRST_CITY_STEP = 'Paris';
 
 export const MAX_COUNT_REVIEWS = 10;
 
+export const MIN_TEXT_COMMENT = 50;
+export const MAX_TEXT_COMMENT = 300;
+
 export const URL_MARKER_DEFAULT =
   'img/pin.svg';
 

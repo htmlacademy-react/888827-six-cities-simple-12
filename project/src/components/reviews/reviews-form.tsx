@@ -1,40 +1,75 @@
-import {useState} from 'react';
-import {RATINGS} from '../const/const';
+import {ChangeEvent,useState, useRef, useEffect, FormEvent} from 'react';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {sendReviewAction} from '../../store/api-actions';
+import {ReviewData} from '../../types/review-data';
+import {OfferCity} from '../../types/offer';
+import {MIN_TEXT_COMMENT, MAX_TEXT_COMMENT} from '../const/const';
 import Rating from '../rating/rating';
 
 function RewiewsForm(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const reviewRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const [formData, setFormData] = useState({
-    rating: '',
-    review: ''
-  });
+  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState('');
+  const [disable, setDisabled] = useState(false);
 
-  const fieldChangeHandle = (evt: HTMLInputElement) => {
-    const {name, value,} = evt;
-
-    setFormData({...formData, [name]: value});
+  const onSubmit = (reviewData: ReviewData) => {
+    dispatch(sendReviewAction(reviewData));
+    clearForm();
   };
 
-  const fieldChangeHandleTextare = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const {value} = evt.target;
-
-    setFormData({...formData, review: value});
+  const offer = useAppSelector((state) => state.offer) as OfferCity;
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    onSubmit({
+      hotelId: offer.id,
+      comment: review,
+      rating: rating,
+    });
   };
+
+  useEffect(() => {
+    setDisabled(!!(review.length > MAX_TEXT_COMMENT || review.length < MIN_TEXT_COMMENT || rating === 0));
+  }, [rating, review]);
+
+  const fieldChangeHandle = ({ target }:ChangeEvent<HTMLTextAreaElement>) => {
+    setReview(target.value);
+  };
+
+  const clearForm = () => {
+    if (rating) {
+      const ratingElement = document.getElementById(`${rating}-stars`);
+      if (ratingElement) {
+        (ratingElement as HTMLInputElement).checked = false;
+      }
+    }
+
+    if (reviewRef.current !== null) {
+      reviewRef.current.value = '';
+    }
+
+    setRating(0);
+    setReview('');
+    setDisabled(false);
+  };
+
+  const ratingValue = Array.from({length: 5}, (_, index) => index + 1);
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="" method="post" onSubmit={handleSubmit} >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {RATINGS.map((rating, id) => (
-          <Rating onChange={fieldChangeHandle} key={`${id * 10}`} title={rating} id={id} value={id} />
+        {ratingValue.reverse().map((value: number) => (
+          <Rating key={value} id={value} value={value} onChange={() => setRating(value)} />
         ))}
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={fieldChangeHandleTextare} value={formData.review}></textarea>
+      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={fieldChangeHandle} value={review}></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{MIN_TEXT_COMMENT} characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={disable}>Submit</button>
       </div>
     </form>
   );

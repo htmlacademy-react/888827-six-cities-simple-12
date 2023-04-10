@@ -1,7 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeCity, changeOffer, selectPoint, changeOption, loadOffers, loadReviews, loadNextReview, setOffersDataLoadingStatus, requireAuthorization, setUserData} from './action';
+import {changeCity, changeOffer, selectPoint, changeOption, loadOffers, loadReviews, loadNextReview, setOffersDataLoadingStatus, requireAuthorization, setUserData, loadOfferById} from './action';
 import {FIRST_CITY_STEP, AuthorizationStatus} from '../components/const/const';
-import {Offers} from '../types/offer';
+import {Offers, OfferCity} from '../types/offer';
 import {Review, Reviews} from '../types/review';
 import {UserData} from '../types/user-data';
 
@@ -16,6 +16,7 @@ type InitalState = {
   userData: UserData | null;
   reviews: Reviews;
   nextReview: Review | null;
+  offer: OfferCity | null;
 }
 
 const initialState: InitalState = {
@@ -29,6 +30,7 @@ const initialState: InitalState = {
   userData: null,
   reviews: [],
   nextReview: null,
+  offer: null,
 };
 
 function getSortOffers(a:number, b:number) {
@@ -85,6 +87,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadNextReview, (state, action) => {
       state.nextReview = action.payload;
+    })
+    .addCase(loadOfferById, (state, action) => {
+      state.offer = action.payload;
     });
 });
 
