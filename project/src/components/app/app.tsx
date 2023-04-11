@@ -2,23 +2,16 @@ import {Route, Routes} from 'react-router-dom';
 import {AppRoute} from '../const/const';
 import {HelmetProvider} from 'react-helmet-async';
 import {useAppSelector} from '../../hooks';
-import {Review} from '../../types/review';
 import MainRender from '../../pages/main/main';
 import LoginRender from '../../pages/login/login';
 import RoomRender from '../../pages/room/room';
 import PageError from '../page-error/page-error';
-//import PrivateRoute from '../private-route/private-route';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import Layout from '../../pages/layout';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
-type AppRenderProps = {
-  reviews: Review[];
-}
-
-function App({reviews}: AppRenderProps): JSX.Element {
-  //const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+function App(): JSX.Element {
   const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
 
   if (isOffersDataLoading) {
@@ -40,7 +33,7 @@ function App({reviews}: AppRenderProps): JSX.Element {
             />
             <Route
               path={AppRoute.Room}
-              element={<RoomRender reviews={reviews} />}
+              element={<RoomRender />}
             />
             <Route
               path="*"

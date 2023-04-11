@@ -1,28 +1,51 @@
-import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
-import { OfferCity } from '../../types/offer';
-import { Review } from '../../types/review';
-import { useAppSelector } from '../../hooks/index';
+import {Helmet} from 'react-helmet-async';
+import {useParams} from 'react-router-dom';
+import {OfferCity} from '../../types/offer';
+import {useAppSelector} from '../../hooks/index';
+import {useEffect, useState} from 'react';
+import {useAppDispatch} from '../../hooks';
+import {AuthorizationStatus} from '../../components/const/const';
+import {fetchReviewsAction, fetchOfferByIdAction } from '../../store/api-actions';
+import {Offers} from '../../types/offer';
 import ReviewsList from '../../components/reviews/reviews-list';
+import ReviewsForm from '../../components/reviews/reviews-form';
 import Map from '../../components/map/map';
 import ListOffers from '../../components/list-offers/list-offers';
+import PropertyGallery from '../../components/property-gallery/property-gallery';
 
-type RoomRenderProps = {
-  reviews: Review[];
-}
+function RoomRender(): JSX.Element {
+  const dispatch = useAppDispatch();
 
-function RoomRender(props:RoomRenderProps): JSX.Element {
-  const {reviews} = props;
+  const {id} = useParams() as {id: string};
 
+  const hotelId = Number(id);
+  const [, setCurrentOffer] = useState<Offers | null>(null);
   const places = useAppSelector((state) => state.offers);
 
-  const {id} = useParams();
+  useEffect(() => {
+    setCurrentOffer(places);
+  }, [places, dispatch]);
+
+  useEffect(() => {
+    if (isNaN(hotelId)) {
+      setCurrentOffer(null);
+    }else {
+      dispatch(fetchReviewsAction({ id : hotelId }));
+      dispatch(fetchOfferByIdAction({ id : hotelId }));
+    }
+  }, [id, hotelId, dispatch]);
+
+
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
   const roomOffers: OfferCity | undefined = places.find((offer) => offer.id === Number(id));
   if (!roomOffers) {
     return <>Page not Found</>;
   }
 
-  const {bedrooms, description, host, maxAdults, price, rating, title, type} = roomOffers;
+  const place = places.find((offer) => offer.id === parseInt(id, 10)) as OfferCity;
+
+  const {bedrooms, description, host, maxAdults, price, rating, title, type, isPremium} = roomOffers;
   const {avatarUrl, name} = host;
   const visuallyRating = `${Math.round(rating) / 5 * 100}%`;
 
@@ -43,32 +66,17 @@ function RoomRender(props:RoomRenderProps): JSX.Element {
         <main className="page__main page__main--property">
           <section className="property">
             <div className="property__gallery-container container">
-              <div className="property__gallery">
-                <div className="property__image-wrapper">
-                  <img className="property__image" src="img/room.jpg" />
-                </div>
-                <div className="property__image-wrapper">
-                  <img className="property__image" src="img/apartment-01.jpg" />
-                </div>
-                <div className="property__image-wrapper">
-                  <img className="property__image" src="img/apartment-02.jpg" />
-                </div>
-                <div className="property__image-wrapper">
-                  <img className="property__image" src="img/apartment-03.jpg" />
-                </div>
-                <div className="property__image-wrapper">
-                  <img className="property__image" src="img/studio-01.jpg" />
-                </div>
-                <div className="property__image-wrapper">
-                  <img className="property__image" src="img/apartment-01.jpg" />
-                </div>
-              </div>
+              <PropertyGallery images={place.images}/>
             </div>
             <div className="property__container container">
               <div className="property__wrapper">
-                <div className="property__mark">
-                  <span>Premium</span>
-                </div>
+                {isPremium ? (
+                  <div className="property__mark">
+                    <span>Premium</span>
+                  </div>
+                ) : (
+                  ''
+                )}
                 <div className="property__name-wrapper">
                   <h1 className="property__name">{title}</h1>
                 </div>
@@ -118,7 +126,10 @@ function RoomRender(props:RoomRenderProps): JSX.Element {
                     </p>
                   </div>
                 </div>
-                <ReviewsList reviews={reviews}/>
+                <section className="property__reviews reviews">
+                  <ReviewsList />
+                  { authorizationStatus === AuthorizationStatus.Auth && <ReviewsForm />}
+                </section>
               </div>
             </div>
             <section className="property__map map">

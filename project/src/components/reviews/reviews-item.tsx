@@ -1,21 +1,19 @@
-import { Review } from '../../types/review';
+import {Review} from '../../types/review';
+import ProcessDate from '../../process-date';
 
-type ReviewsItemProps = {
-  review: Review;
-}
+function ReviewsItem(review: Review):JSX.Element {
+  const visuallyRating = `${Math.round(review.rating) / 5 * 100}%`;
 
-function ReviewsItem({review}:ReviewsItemProps):JSX.Element {
-  const {images, name, rating, time, text} = review;
-  const visuallyRating = `${Math.round(rating) / 5 * 100}%`;
+  const [reviewTime, reviewDateTime] = ProcessDate(review);
 
   return (
-    <>
+    <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src={images} width="54" height="54" alt="Reviews avatar" />
+          <img className="reviews__avatar user__avatar" src={review.user.avatarUrl} width="54" height="54" alt="Reviews avatar" />
         </div>
         <span className="reviews__user-name">
-          {name}
+          {review.user.name}
         </span>
       </div>
       <div className="reviews__info">
@@ -26,11 +24,11 @@ function ReviewsItem({review}:ReviewsItemProps):JSX.Element {
           </div>
         </div>
         <p className="reviews__text">
-          {text}
+          {review.comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">{time}</time>
+        <time className="reviews__time" dateTime={reviewDateTime}>{reviewTime}</time>
       </div>
-    </>
+    </li>
   );
 }
 

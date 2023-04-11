@@ -19,6 +19,11 @@ export enum APIRoute {
 
 export const FIRST_CITY_STEP = 'Paris';
 
+export const MAX_COUNT_REVIEWS = 10;
+
+export const MIN_TEXT_COMMENT = 50;
+export const MAX_TEXT_COMMENT = 300;
+
 export const URL_MARKER_DEFAULT =
   'img/pin.svg';
 
@@ -30,3 +35,4 @@ export const REQUEST_TIMEOUT = 5000;
 
 export const LOCATIONS = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 export const OPTIONS = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
+export const RATINGS = ['perfect', 'good', 'not bad', 'badly', 'terribly'];

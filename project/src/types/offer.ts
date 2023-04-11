@@ -26,10 +26,10 @@ export type OfferCity = {
   bedrooms: number;
   city: NameCity;
   description: string;
-  goods: string;
+  goods: string[];
   host: Host;
   id: number;
-  images: string;
+  images: string[];
   isPremium: boolean;
   location: Point;
   maxAdults: number;
