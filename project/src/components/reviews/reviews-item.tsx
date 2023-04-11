@@ -1,8 +1,10 @@
 import {Review} from '../../types/review';
-import ProcessData from '../../components/process-data/process-data';
+import ProcessDate from '../../process-date';
 
 function ReviewsItem(review: Review):JSX.Element {
   const visuallyRating = `${Math.round(review.rating) / 5 * 100}%`;
+
+  const [reviewTime, reviewDateTime] = ProcessDate(review);
 
   return (
     <li className="reviews__item">
@@ -24,7 +26,7 @@ function ReviewsItem(review: Review):JSX.Element {
         <p className="reviews__text">
           {review.comment}
         </p>
-        <ProcessData comment={review.comment} date={review.date} id={review.id} rating={review.rating} user={review.user}/>
+        <time className="reviews__time" dateTime={reviewDateTime}>{reviewTime}</time>
       </div>
     </li>
   );

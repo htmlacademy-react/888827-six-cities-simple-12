@@ -1,7 +1,6 @@
 import {ChangeEvent,useState, useRef, useEffect, FormEvent} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {useParams} from 'react-router-dom';
-import {sendReviewAction, fetchReviewsAction} from '../../store/api-actions';
+import {sendReviewAction} from '../../store/api-actions';
 import {ReviewData} from '../../types/review-data';
 import {OfferCity} from '../../types/offer';
 import {MIN_TEXT_COMMENT, MAX_TEXT_COMMENT} from '../const/const';
@@ -11,16 +10,12 @@ function RewiewsForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const reviewRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const {id} = useParams() as {id: string};
-  const hotelId = Number(id);
-
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
   const [disable, setDisabled] = useState(false);
 
   const onSubmit = (reviewData: ReviewData) => {
     dispatch(sendReviewAction(reviewData));
-    dispatch(fetchReviewsAction({id : hotelId}));
     clearForm();
   };
 

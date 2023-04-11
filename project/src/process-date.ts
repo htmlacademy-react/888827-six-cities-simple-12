@@ -1,14 +1,12 @@
-import {Review} from '../../types/review';
+import {Review} from './types/review';
 
-function ProcessData(review: Review):JSX.Element {
+function ProcessDate (review:Review) {
   const reviewDate = new Date(review.date);
   const monthName = reviewDate.toLocaleString('en-EN', { month: 'long' });
   const reviewTime = `${monthName} ${reviewDate.getFullYear()}`;
   const reviewDateTime = review.date.substring(0, 10);
 
-  return (
-    <time className="reviews__time" dateTime={reviewDateTime}>{reviewTime}</time>
-  );
+  return [reviewTime, reviewDateTime];
 }
 
-export default ProcessData;
+export default ProcessDate;
