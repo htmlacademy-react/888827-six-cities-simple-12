@@ -7,6 +7,7 @@ import {Reviews} from '../types/review';
 export type OfferData = {
   offers: Offers;
   isOffersDataLoading: boolean;
+  hasError: boolean;
 };
 
 export type OfferProcess = {

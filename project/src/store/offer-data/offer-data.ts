@@ -6,6 +6,7 @@ import {fetchOfferAction} from '../api-actions';
 const initialState: OfferData = {
   offers: [],
   isOffersDataLoading: false,
+  hasError: false,
 };
 
 export const offerData = createSlice({
@@ -16,10 +17,15 @@ export const offerData = createSlice({
     builder
       .addCase(fetchOfferAction.pending, (state) => {
         state.isOffersDataLoading = true;
+        state.hasError = false;
       })
       .addCase(fetchOfferAction.fulfilled, (state, action) => {
         state.offers = action.payload;
         state.isOffersDataLoading = false;
+      })
+      .addCase(fetchOfferAction.rejected, (state) => {
+        state.isOffersDataLoading = false;
+        state.hasError = true;
       });
   }
 });
