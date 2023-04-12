@@ -2,6 +2,7 @@ import {Route, Routes} from 'react-router-dom';
 import {AppRoute} from '../const/const';
 import {HelmetProvider} from 'react-helmet-async';
 import {useAppSelector} from '../../hooks';
+import {getOffersDataLoadingStatus} from '../../store/offer-data/selectors';
 import MainRender from '../../pages/main/main';
 import LoginRender from '../../pages/login/login';
 import RoomRender from '../../pages/room/room';
@@ -12,7 +13,7 @@ import Layout from '../../pages/layout';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 function App(): JSX.Element {
-  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  const isOffersDataLoading = useAppSelector(getOffersDataLoadingStatus);
 
   if (isOffersDataLoading) {
     return (

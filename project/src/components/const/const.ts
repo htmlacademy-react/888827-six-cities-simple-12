@@ -17,6 +17,13 @@ export enum APIRoute {
   Logout = '/logout',
 }
 
+export enum NameSpace {
+  Data = 'DATA',
+  Offer = 'OFFER',
+  User = 'USER',
+  Review = 'REVIEW'
+}
+
 export const FIRST_CITY_STEP = 'Paris';
 
 export const MAX_COUNT_REVIEWS = 10;

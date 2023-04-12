@@ -8,13 +8,14 @@ import {AuthData} from '../../types/auth-data';
 import {Navigate} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus, LOCATIONS} from '../../components/const/const';
 import {toast} from 'react-toastify';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import Logo from '../../components/logo/logo';
 
 function LoginRender(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(getAuthorizationStatus);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

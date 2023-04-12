@@ -7,6 +7,8 @@ import {useAppDispatch} from '../../hooks';
 import {AuthorizationStatus} from '../../components/const/const';
 import {fetchReviewsAction, fetchOfferByIdAction } from '../../store/api-actions';
 import {Offers} from '../../types/offer';
+import {getOffers} from '../../store/offer-process/selectors';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import ReviewsList from '../../components/reviews/reviews-list';
 import ReviewsForm from '../../components/reviews/reviews-form';
 import Map from '../../components/map/map';
@@ -20,7 +22,7 @@ function RoomRender(): JSX.Element {
 
   const hotelId = Number(id);
   const [, setCurrentOffer] = useState<Offers | null>(null);
-  const places = useAppSelector((state) => state.offers);
+  const places = useAppSelector(getOffers);
 
   useEffect(() => {
     setCurrentOffer(places);
@@ -36,7 +38,7 @@ function RoomRender(): JSX.Element {
   }, [id, hotelId, dispatch]);
 
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const roomOffers: OfferCity | undefined = places.find((offer) => offer.id === Number(id));
   if (!roomOffers) {
