@@ -8,6 +8,7 @@ export type OfferData = {
   offers: Offers;
   isOffersDataLoading: boolean;
   hasError: boolean;
+  offer: OfferCity | null;
 };
 
 export type OfferProcess = {
@@ -16,7 +17,6 @@ export type OfferProcess = {
   data: Offers;
   selectPoint: number;
   sortType: string;
-  offer: OfferCity | null;
 };
 
 export type ReviewProcess = {

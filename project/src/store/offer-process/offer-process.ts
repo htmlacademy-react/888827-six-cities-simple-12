@@ -1,6 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace, FIRST_CITY_STEP} from '../../components/const/const';
-import {Offers, OfferCity} from '../../types/offer';
 import {OfferProcess} from '../../types/state';
 
 const initialState: OfferProcess = {
@@ -9,7 +8,6 @@ const initialState: OfferProcess = {
   data: [],
   selectPoint: 0,
   sortType: 'Popular',
-  offer: null,
 };
 
 function getSortOffers(a:number, b:number) {
@@ -50,14 +48,11 @@ export const offerProcess = createSlice({
       }
       state.sortType = sortType;
     },
-    loadOffers: (state, action: PayloadAction<Offers>) => {
-      state.offers = action.payload;
-      state.data = action.payload;
-    },
-    loadOfferById: (state, action: PayloadAction<OfferCity>) => {
-      state.offer = action.payload;
-    },
+    // loadOffers: (state, action: PayloadAction<Offers>) => {
+    //   state.offers = action.payload;
+    //   state.data = action.payload;
+    // },
   },
 });
 
-export const {changeCity, changeOffer, selectPoint, changeOption, loadOffers, loadOfferById} = offerProcess.actions;
+export const {changeCity, changeOffer, selectPoint, changeOption} = offerProcess.actions;

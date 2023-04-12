@@ -4,7 +4,7 @@ import {sendReviewAction} from '../../store/api-actions';
 import {ReviewData} from '../../types/review-data';
 import {OfferCity} from '../../types/offer';
 import {MIN_TEXT_COMMENT, MAX_TEXT_COMMENT} from '../const/const';
-import {getOffer} from '../../store/offer-process/selectors';
+import {getOffer} from '../../store/offer-data/selectors';
 import Rating from '../rating/rating';
 
 function RewiewsForm(): JSX.Element {

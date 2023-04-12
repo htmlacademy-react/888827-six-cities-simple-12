@@ -10,11 +10,7 @@ const initialState: ReviewProcess = {
 export const reviewProcess = createSlice({
   name: NameSpace.Review,
   initialState,
-  reducers: {
-    // loadReviews: (state, action: PayloadAction<Reviews>) => {
-    //   state.reviews = action.payload;
-    // },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {
