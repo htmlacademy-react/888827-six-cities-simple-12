@@ -7,7 +7,7 @@ import {useAppDispatch} from '../../hooks';
 import {AuthorizationStatus} from '../../components/const/const';
 import {fetchReviewsAction, fetchOfferByIdAction } from '../../store/api-actions';
 import {Offers} from '../../types/offer';
-import {getOffers} from '../../store/offer-process/selectors';
+import {getOffers} from '../../store/offer-data/selectors';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import ReviewsList from '../../components/reviews/reviews-list';
 import ReviewsForm from '../../components/reviews/reviews-form';

@@ -3,7 +3,7 @@ import {Icon, Marker} from 'leaflet';
 import {Offers} from '../../types/offer';
 import {useAppSelector} from '../../hooks';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../const/const';
-import {getSelectPoint} from '../../store/offer-process/selectors';
+import {getSelectPoint} from '../../store/offer-data/selectors';
 import useMap from '../../hooks/useMap';
 import 'leaflet/dist/leaflet.css';
 

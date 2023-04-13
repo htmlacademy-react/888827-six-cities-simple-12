@@ -1,8 +1,8 @@
 import {useState} from 'react';
-import {changeOption} from '../../store/offer-process/offer-process';
+import {changeOption} from '../../store/offer-data/offer-data';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {OPTIONS} from '../const/const';
-import {getSortType} from '../../store/offer-process/selectors';
+import {getSortType} from '../../store/offer-data/selectors';
 
 function SortOptions():JSX.Element {
   const [isOpen, setIsOpen] = useState(false);

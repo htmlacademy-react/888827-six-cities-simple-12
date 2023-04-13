@@ -1,6 +1,6 @@
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {selectPoint} from '../../store/offer-process/offer-process';
-import {getSelectPoint} from '../../store/offer-process/selectors';
+import {selectPoint} from '../../store/offer-data/offer-data';
+import {getSelectPoint} from '../../store/offer-data/selectors';
 import {Link} from 'react-router-dom';
 import {OfferCity} from '../../types/offer';
 

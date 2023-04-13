@@ -1,9 +1,10 @@
 import {Helmet} from 'react-helmet-async';
 import {useAppSelector, useAppDispatch} from '../../hooks';
 import {useEffect} from 'react';
-import {changeOffer} from '../../store/offer-process/offer-process';
+import {changeOffer} from '../../store/offer-data/offer-data';
 import {LOCATIONS} from '../../components/const/const';
-import {getOffers, getFirstCity, getData} from '../../store/offer-process/selectors';
+import {getFirstCity} from '../../store/offer-process/selectors';
+import {getOffers, getData} from '../../store/offer-data/selectors';
 import {getOffersDataLoadingStatus} from '../../store/offer-data/selectors';
 import Locations from '../../components/locations/locations';
 import ListOffers from '../../components/list-offers/list-offers';

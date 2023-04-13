@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks/index';
-import {changeCity, changeOffer} from '../../store/offer-process/offer-process';
+import {changeCity} from '../../store/offer-process/offer-process';
+import {changeOffer} from '../../store/offer-data/offer-data';
 
 type LocationsProps = {
   value: string;

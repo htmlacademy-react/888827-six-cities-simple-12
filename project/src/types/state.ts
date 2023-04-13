@@ -6,21 +6,21 @@ import {Reviews} from '../types/review';
 
 export type OfferData = {
   offers: Offers;
+  offer: OfferCity | null;
+  data: Offers;
+  selectPoint: number;
+  sortType: string;
   isOffersDataLoading: boolean;
   hasError: boolean;
-  offer: OfferCity | null;
 };
 
 export type OfferProcess = {
   firstCity: string;
-  offers: Offers;
-  data: Offers;
-  selectPoint: number;
-  sortType: string;
 };
 
 export type ReviewProcess = {
   reviews: Reviews;
+  hasError: boolean;
 };
 
 export type UserProcess = {
