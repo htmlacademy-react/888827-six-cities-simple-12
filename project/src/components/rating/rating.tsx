@@ -1,3 +1,5 @@
+import {memo} from 'react';
+
 type RatingProps = {
   id: number;
   value: number;
@@ -24,4 +26,4 @@ function Rating(props: RatingProps):JSX.Element {
   );
 }
 
-export default Rating;
+export default memo(Rating, (prevProps, nextProps) => prevProps.value === nextProps.value);
