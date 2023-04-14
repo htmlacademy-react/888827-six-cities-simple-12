@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, memo} from 'react';
 import {changeOption} from '../../store/offer-data/offer-data';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {OPTIONS} from '../const/const';
@@ -40,4 +40,4 @@ function SortOptions():JSX.Element {
   );
 }
 
-export default SortOptions;
+export default memo(SortOptions);
