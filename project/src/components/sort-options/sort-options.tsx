@@ -1,7 +1,8 @@
-import {useState} from 'react';
-import {changeOption} from '../../store/action';
+import {useState, memo} from 'react';
+import {changeOption} from '../../store/offer-data/offer-data';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {OPTIONS} from '../const/const';
+import {getSortType} from '../../store/offer-data/selectors';
 
 function SortOptions():JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +13,7 @@ function SortOptions():JSX.Element {
     setIsOpen(false);
   };
 
-  const sortType = useAppSelector((state) => state.sortType);
+  const sortType = useAppSelector(getSortType);
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -39,4 +40,4 @@ function SortOptions():JSX.Element {
   );
 }
 
-export default SortOptions;
+export default memo(SortOptions);

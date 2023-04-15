@@ -4,9 +4,11 @@ import {sendReviewAction} from '../../store/api-actions';
 import {ReviewData} from '../../types/review-data';
 import {OfferCity} from '../../types/offer';
 import {MIN_TEXT_COMMENT, MAX_TEXT_COMMENT} from '../const/const';
+import {getOffer} from '../../store/offer-data/selectors';
 import Rating from '../rating/rating';
+import {memo} from 'react';
 
-function RewiewsForm(): JSX.Element {
+function ReviewsForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const reviewRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -19,7 +21,7 @@ function RewiewsForm(): JSX.Element {
     clearForm();
   };
 
-  const offer = useAppSelector((state) => state.offer) as OfferCity;
+  const offer = useAppSelector(getOffer) as OfferCity;
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     onSubmit({
@@ -75,4 +77,4 @@ function RewiewsForm(): JSX.Element {
   );
 }
 
-export default RewiewsForm;
+export default memo(ReviewsForm);

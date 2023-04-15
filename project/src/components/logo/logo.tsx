@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
-function Logo () : JSX.Element {
+function Logo() : JSX.Element {
   return (
     <div className="header__left">
       <Link className="header__logo-link header__logo-link--active" to="/">

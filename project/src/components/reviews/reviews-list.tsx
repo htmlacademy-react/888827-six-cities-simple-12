@@ -1,11 +1,11 @@
 import {useAppSelector} from '../../hooks';
 import {MAX_COUNT_REVIEWS} from '../const/const';
+import {getReviews} from '../../store/review-process/selectors';
 import ReviewsItem from '../../components/reviews/reviews-item';
 import ReviewsSort from '../../components/reviews/reviews-sort';
 
-
 function ReviewsList():JSX.Element {
-  const reviews = useAppSelector((state) => state.reviews);
+  const reviews = useAppSelector(getReviews);
 
   return (
     <>

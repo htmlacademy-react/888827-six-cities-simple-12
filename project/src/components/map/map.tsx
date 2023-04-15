@@ -1,8 +1,9 @@
-import { useRef, useEffect } from 'react';
-import { Icon, Marker } from 'leaflet';
-import { Offers } from '../../types/offer';
-import { useAppSelector } from '../../hooks';
-import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../const/const';
+import {useRef, useEffect} from 'react';
+import {Icon, Marker} from 'leaflet';
+import {Offers} from '../../types/offer';
+import {useAppSelector} from '../../hooks';
+import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../const/const';
+import {getSelectPoint} from '../../store/offer-data/selectors';
 import useMap from '../../hooks/useMap';
 import 'leaflet/dist/leaflet.css';
 
@@ -24,7 +25,7 @@ const currentCustomIcon = new Icon({
 
 function Map({places}: MapProps) {
 
-  const selectedPoint = useAppSelector((state) => state.selectPoint);
+  const selectedPoint = useAppSelector(getSelectPoint);
 
   const offerCity = places.map((place) => {
     const obj = {

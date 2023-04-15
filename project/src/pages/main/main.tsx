@@ -1,9 +1,11 @@
 import {Helmet} from 'react-helmet-async';
 import {useAppSelector, useAppDispatch} from '../../hooks';
 import {useEffect} from 'react';
-import {changeOffer} from '../../store/action';
+import {changeOffer} from '../../store/offer-data/offer-data';
 import {LOCATIONS} from '../../components/const/const';
-//import Header from '../../components/header/header';
+import {getFirstCity} from '../../store/offer-process/selectors';
+import {getOffers, getData} from '../../store/offer-data/selectors';
+import {getOffersDataLoadingStatus} from '../../store/offer-data/selectors';
 import Locations from '../../components/locations/locations';
 import ListOffers from '../../components/list-offers/list-offers';
 import Map from '../../components/map/map';
@@ -11,11 +13,11 @@ import SortOptions from '../../components/sort-options/sort-options';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 function MainRender(): JSX.Element {
-  const places = useAppSelector((state) => state.offers);
-  const visibleCity = useAppSelector((state) => state.firstCity);
-  const loading = useAppSelector((state) => state.isOffersDataLoading);
+  const places = useAppSelector(getOffers);
+  const visibleCity = useAppSelector(getFirstCity);
+  const loading = useAppSelector(getOffersDataLoadingStatus);
 
-  const data = useAppSelector((state) => state.data);
+  const data = useAppSelector(getData);
 
   const dispatch = useAppDispatch();
   useEffect(() => {
