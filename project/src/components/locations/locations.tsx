@@ -1,3 +1,4 @@
+import {memo} from 'react';
 import {Link} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks/index';
 import {changeCity} from '../../store/offer-process/offer-process';
@@ -26,4 +27,4 @@ function Locations ({value, visibleCity}: LocationsProps): JSX.Element {
   );
 }
 
-export default Locations;
+export default memo(Locations, (prevProps, nextProps) => prevProps.visibleCity === nextProps.visibleCity);

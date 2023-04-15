@@ -1,6 +1,5 @@
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useAppDispatch} from '../../hooks';
 import {selectPoint} from '../../store/offer-data/offer-data';
-import {getSelectPoint} from '../../store/offer-data/selectors';
 import {Link} from 'react-router-dom';
 import {OfferCity} from '../../types/offer';
 
@@ -13,10 +12,10 @@ function Card({offer}: CardProps): JSX.Element {
   const visuallyRating = `${Math.round(rating) / 5 * 100}%`;
 
   const dispatch = useAppDispatch();
-  const selectedPoint = useAppSelector(getSelectPoint);
+  //const selectedPoint = useAppSelector(getSelectPoint);
 
   return (
-    <article className={`cities__card place-card ${selectedPoint === id ? 'active-card' : ''}`} onMouseOver={() => dispatch(selectPoint({selectedPoint: id}))}>
+    <article className="cities__card place-card" onMouseOver={() => dispatch(selectPoint({selectedPoint: id}))}>
       {isPremium ? (
         <div className="place-card__mark">
           <span>Premium</span>

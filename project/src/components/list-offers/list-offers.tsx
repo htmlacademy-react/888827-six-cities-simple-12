@@ -1,4 +1,3 @@
-import {memo} from 'react';
 import {Offers} from '../../types/offer';
 import Card from '../card/card';
 
@@ -20,4 +19,4 @@ function ListOffers({offers}: ListOffersProps): JSX.Element {
   );
 }
 
-export default memo(ListOffers, (prevProps, nextProps) => prevProps.offers === nextProps.offers);
+export default ListOffers;

@@ -1,3 +1,4 @@
+import {memo} from 'react';
 import {Link} from 'react-router-dom';
 import {AuthorizationStatus} from '../const/const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
@@ -41,4 +42,4 @@ function HeaderNav (): JSX.Element {
   );
 }
 
-export default HeaderNav;
+export default memo(HeaderNav);
