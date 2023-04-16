@@ -37,7 +37,7 @@ export const URL_MARKER_DEFAULT =
 export const URL_MARKER_CURRENT =
   'img/pin-active.svg';
 
-export const BACKEND_URL = 'https://12.react.pages.academy/six-cities-simple';
+export const BACKEND_URL = 'https://112.react.pages.academy/six-cities-simple';
 export const REQUEST_TIMEOUT = 5000;
 
 export const LOCATIONS = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
