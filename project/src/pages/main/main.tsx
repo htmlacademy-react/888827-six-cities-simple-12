@@ -5,17 +5,19 @@ import {changeOffer} from '../../store/offer-data/offer-data';
 import {LOCATIONS} from '../../components/const/const';
 import {getFirstCity} from '../../store/offer-process/selectors';
 import {getOffers, getData} from '../../store/offer-data/selectors';
-import {getOffersDataLoadingStatus} from '../../store/offer-data/selectors';
+import {getOffersDataLoadingStatus, getErrorStatus} from '../../store/offer-data/selectors';
 import Locations from '../../components/locations/locations';
 import ListOffers from '../../components/list-offers/list-offers';
 import Map from '../../components/map/map';
 import SortOptions from '../../components/sort-options/sort-options';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import ErrorScreen from '../../pages/error-screen/error-screen';
 
 function MainRender(): JSX.Element {
   const places = useAppSelector(getOffers);
   const visibleCity = useAppSelector(getFirstCity);
   const loading = useAppSelector(getOffersDataLoadingStatus);
+  const hasError = useAppSelector(getErrorStatus);
 
   const data = useAppSelector(getData);
 
@@ -23,6 +25,11 @@ function MainRender(): JSX.Element {
   useEffect(() => {
     dispatch(changeOffer({ checkCity: 'Paris' }));
   }, [dispatch, data]);
+
+  if (hasError) {
+    return (
+      <ErrorScreen />);
+  }
 
   return (
     <>
