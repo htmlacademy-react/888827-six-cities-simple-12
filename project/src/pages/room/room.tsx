@@ -23,6 +23,7 @@ function RoomRender(): JSX.Element {
   const hotelId = Number(id);
   const [, setCurrentOffer] = useState<Offers | null>(null);
   const places = useAppSelector(getOffers);
+  const nearPoint = useAppSelector(getOffers);
 
   useEffect(() => {
     setCurrentOffer(places);
@@ -135,7 +136,7 @@ function RoomRender(): JSX.Element {
               </div>
             </div>
             <section className="property__map map">
-              <Map places={nearOffer} />
+              <Map places={nearOffer} nearPoint={nearPoint} />
             </section>
           </section>
           <div className="container">

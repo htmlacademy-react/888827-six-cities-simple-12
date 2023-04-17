@@ -1,6 +1,6 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker} from 'leaflet';
-import {Offers} from '../../types/offer';
+import {Offers, OfferCity} from '../../types/offer';
 import {useAppSelector} from '../../hooks';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../const/const';
 import {getSelectPoint} from '../../store/offer-data/selectors';
@@ -9,6 +9,7 @@ import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   places: Offers;
+  nearPoint?: OfferCity[];
 };
 
 const defaultCustomIcon = new Icon({
@@ -23,7 +24,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map({places}: MapProps) {
+function Map({places, nearPoint}: MapProps) {
 
   const selectedPoint = useAppSelector(getSelectPoint);
 
@@ -72,8 +73,17 @@ function Map({places}: MapProps) {
           .addTo(map);
 
       });
+
+      if (nearPoint) {
+        const marker = new Marker({
+          lat: city.latitude,
+          lng: city.longitude
+        });
+        marker.setIcon(currentCustomIcon).addTo(map);
+      }
+
     }
-  }, [map, offerPins, selectedPoint, city]);
+  }, [map, offerPins, selectedPoint, city, nearPoint]);
 
   return (
     <div className='cities__map map'
