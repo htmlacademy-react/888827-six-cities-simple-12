@@ -53,7 +53,7 @@ function RoomRender(): JSX.Element {
 
   const GOODS = ['Heating', 'WiFi', 'Cabel TV', 'Coffee machine', 'Kitchen'];
 
-  const nearOffer = places.filter((item) => item.id !== Number(id));
+  const nearOffer = places.filter((item) => item.id !== Number(id)).slice(0, 3);
 
   return (
     <>
