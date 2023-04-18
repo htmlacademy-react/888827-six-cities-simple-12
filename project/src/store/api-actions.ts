@@ -18,10 +18,7 @@ export const fetchOfferAction = createAsyncThunk<Offers, undefined, {
 }>(
   'data/fetchOffers',
   async (_arg, {dispatch, extra: api}) => {
-    //dispatch(setOffersDataLoadingStatus(true));
     const {data} = await api.get<Offers>(APIRoute.Offers);
-    //dispatch(setOffersDataLoadingStatus(false));
-    //dispatch(loadOffers(data));
     return data;
   },
 );
@@ -33,7 +30,6 @@ export const checkAuthAction = createAsyncThunk<UserData, undefined, {
 }>(
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
-    //await api.get(APIRoute.Login);
     const {data: userData} = await api.get<UserData>(APIRoute.Login);
     return userData;
   },
@@ -48,7 +44,6 @@ export const loginAction = createAsyncThunk<UserData, AuthData, {
   async ({login: email, password}, {dispatch, extra: api}) => {
     const {data: userData} = await api.post<UserData>(APIRoute.Login, {email, password});
     saveToken(userData.token);
-    //dispatch(setUserData(userData));
     dispatch(redirectToRoute(AppRoute.Main));
     return userData;
   },
@@ -63,7 +58,6 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    //dispatch(setUserData(null));
   },
 );
 
@@ -75,7 +69,20 @@ export const fetchOfferByIdAction = createAsyncThunk<OfferCity, OfferId, {
   'data/fetchOfferById',
   async ({id}, {dispatch, extra: api}) => {
     const {data} = await api.get<OfferCity>(`${APIRoute.Offers}/${id}`);
-    //dispatch(loadOfferById(data));
+    return data;
+  },
+);
+
+type IdType = string | undefined;
+
+export const fetchNearOffersAction = createAsyncThunk<Offers, IdType, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/loadNearOffers',
+  async (id, { dispatch, extra: api }) => {
+    const { data } = await api.get<Offers>(`${APIRoute.Offers}/${id as string}/nearby`);
     return data;
   },
 );
@@ -88,7 +95,6 @@ export const fetchReviewsAction = createAsyncThunk<Reviews, OfferId, {
   'data/fetchReviews',
   async ({id}, {dispatch, extra: api}) => {
     const {data} = await api.get<Reviews>(`${APIRoute.Comments}/${id}`);
-    //dispatch(loadReviews(data));
     return data;
   },
 );
@@ -101,7 +107,6 @@ export const sendReviewAction = createAsyncThunk<Reviews, ReviewData, {
   'user/sendReview',
   async ({hotelId, comment, rating}, {dispatch, extra: api}) => {
     const {data} = await api.post<Reviews>(`${APIRoute.Comments}/${hotelId}`, {comment, rating});
-    //dispatch(loadReviews(review));
     return data;
   },
 );

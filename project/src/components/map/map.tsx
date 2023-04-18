@@ -1,6 +1,6 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker} from 'leaflet';
-import {Offers} from '../../types/offer';
+import {Offers, OfferCity} from '../../types/offer';
 import {useAppSelector} from '../../hooks';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../const/const';
 import {getSelectPoint} from '../../store/offer-data/selectors';
@@ -9,6 +9,7 @@ import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   places: Offers;
+  currentOffer?: OfferCity | null;
 };
 
 const defaultCustomIcon = new Icon({
@@ -23,9 +24,9 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map({places}: MapProps) {
+function Map({places, currentOffer}: MapProps) {
 
-  const selectedPoint = useAppSelector(getSelectPoint);
+  let selectedPoint = useAppSelector(getSelectPoint);
 
   const offerCity = places.map((place) => {
     const obj = {
@@ -37,7 +38,7 @@ function Map({places}: MapProps) {
     return obj;
   });
 
-  const offerPins = places.map((place) => {
+  let offerPins = places.map((place) => {
     const obj = {
       id: place.id,
       lat: place.location.latitude,
@@ -45,6 +46,16 @@ function Map({places}: MapProps) {
     };
     return obj;
   });
+
+  if (currentOffer) {
+    offerPins = [...offerPins, {
+      id: currentOffer.id,
+      lat: currentOffer.location.latitude,
+      lng: currentOffer.location.longitude,
+    }];
+
+    selectedPoint = currentOffer.id;
+  }
 
   const city = offerCity[0];
 
@@ -72,6 +83,7 @@ function Map({places}: MapProps) {
           .addTo(map);
 
       });
+
     }
   }, [map, offerPins, selectedPoint, city]);
 

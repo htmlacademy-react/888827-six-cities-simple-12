@@ -7,10 +7,12 @@ import {Reviews} from '../types/review';
 export type OfferData = {
   offers: Offers;
   offer: OfferCity | null;
+  nearOffers: Offers;
   data: Offers;
   selectPoint: number;
   sortType: string;
   isOffersDataLoading: boolean;
+  isNearOfferLoading: boolean;
   hasError: boolean;
 };
 

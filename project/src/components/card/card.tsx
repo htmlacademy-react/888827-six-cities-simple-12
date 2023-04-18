@@ -12,7 +12,6 @@ function Card({offer}: CardProps): JSX.Element {
   const visuallyRating = `${Math.round(rating) / 5 * 100}%`;
 
   const dispatch = useAppDispatch();
-  //const selectedPoint = useAppSelector(getSelectPoint);
 
   return (
     <article className="cities__card place-card" onMouseOver={() => dispatch(selectPoint({selectedPoint: id}))}>
