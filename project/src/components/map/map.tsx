@@ -10,6 +10,7 @@ import 'leaflet/dist/leaflet.css';
 type MapProps = {
   places: Offers;
   nearPoint?: OfferCity[];
+  nearOffers?: Offers;
 };
 
 const defaultCustomIcon = new Icon({
@@ -24,7 +25,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map({places, nearPoint}: MapProps) {
+function Map({places, nearPoint, nearOffers}: MapProps) {
 
   const selectedPoint = useAppSelector(getSelectPoint);
 
@@ -74,6 +75,28 @@ function Map({places, nearPoint}: MapProps) {
 
       });
 
+      if (nearOffers) {
+        offerPins.forEach((point) => {
+          map.setView({
+            lat: city.latitude,
+            lng: city.longitude
+          });
+          const marker = new Marker({
+            lat: point.lat,
+            lng: point.lng,
+          });
+
+          marker
+            .setIcon(
+              point.id === selectedPoint
+                ? defaultCustomIcon
+                : defaultCustomIcon
+            )
+            .addTo(map);
+
+        });
+      }
+
       if (nearPoint) {
         const marker = new Marker({
           lat: city.latitude,
@@ -83,7 +106,7 @@ function Map({places, nearPoint}: MapProps) {
       }
 
     }
-  }, [map, offerPins, selectedPoint, city, nearPoint]);
+  }, [map, offerPins, selectedPoint, city, nearPoint, nearOffers]);
 
   return (
     <div className='cities__map map'

@@ -5,7 +5,7 @@ import {useAppSelector} from '../../hooks/index';
 import {useEffect, useState} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {AuthorizationStatus} from '../../components/const/const';
-import {fetchReviewsAction, fetchOfferByIdAction } from '../../store/api-actions';
+import {fetchReviewsAction, fetchOfferByIdAction} from '../../store/api-actions';
 import {Offers} from '../../types/offer';
 import {getOffers} from '../../store/offer-data/selectors';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
@@ -24,6 +24,7 @@ function RoomRender(): JSX.Element {
   const [, setCurrentOffer] = useState<Offers | null>(null);
   const places = useAppSelector(getOffers);
   const nearPoint = useAppSelector(getOffers);
+  const nearOffers = useAppSelector(getOffers);
 
   useEffect(() => {
     setCurrentOffer(places);
@@ -136,7 +137,7 @@ function RoomRender(): JSX.Element {
               </div>
             </div>
             <section className="property__map map">
-              <Map places={nearOffer} nearPoint={nearPoint} />
+              <Map places={nearOffer} nearPoint={nearPoint} nearOffers={nearOffers}/>
             </section>
           </section>
           <div className="container">
