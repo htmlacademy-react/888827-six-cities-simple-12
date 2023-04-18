@@ -1,15 +1,17 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace} from '../../components/const/const';
 import {OfferData} from '../../types/state';
-import {fetchOfferAction, fetchOfferByIdAction} from '../api-actions';
+import {fetchOfferAction, fetchOfferByIdAction, fetchNearOffersAction} from '../api-actions';
 
 const initialState: OfferData = {
   offers: [],
   offer: null,
   data: [],
+  nearOffers: [],
   selectPoint: 0,
   sortType: 'Popular',
   isOffersDataLoading: false,
+  isNearOfferLoading: false,
   hasError: false,
 };
 
@@ -71,6 +73,16 @@ export const offerData = createSlice({
       })
       .addCase(fetchOfferByIdAction.rejected, (state) => {
         state.hasError = true;
+      })
+      .addCase(fetchNearOffersAction.pending, (state) => {
+        state.isNearOfferLoading = true;
+      })
+      .addCase(fetchNearOffersAction.fulfilled, (state, action) => {
+        state.nearOffers = action.payload;
+        state.isNearOfferLoading = false;
+      })
+      .addCase(fetchNearOffersAction.rejected, (state) => {
+        state.isNearOfferLoading = false;
       });
   }
 });

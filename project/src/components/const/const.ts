@@ -43,3 +43,4 @@ export const REQUEST_TIMEOUT = 5000;
 export const LOCATIONS = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 export const OPTIONS = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
 export const RATINGS = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
+export const GOODS = ['Heating', 'WiFi', 'Cabel TV', 'Coffee machine', 'Kitchen'];

@@ -1,4 +1,4 @@
-import {ChangeEvent,useState, useRef, useEffect, FormEvent} from 'react';
+import {ChangeEvent,useState, useRef, useEffect, FormEvent, memo} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {sendReviewAction} from '../../store/api-actions';
 import {ReviewData} from '../../types/review-data';
@@ -6,7 +6,6 @@ import {OfferCity} from '../../types/offer';
 import {MIN_TEXT_COMMENT, MAX_TEXT_COMMENT} from '../const/const';
 import {getOffer} from '../../store/offer-data/selectors';
 import Rating from '../rating/rating';
-import {memo} from 'react';
 
 function ReviewsForm(): JSX.Element {
   const dispatch = useAppDispatch();

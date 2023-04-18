@@ -1,13 +1,12 @@
 import {Helmet} from 'react-helmet-async';
 import {useParams} from 'react-router-dom';
-import {OfferCity} from '../../types/offer';
 import {useAppSelector} from '../../hooks/index';
 import {useEffect, useState} from 'react';
 import {useAppDispatch} from '../../hooks';
-import {AuthorizationStatus} from '../../components/const/const';
-import {fetchReviewsAction, fetchOfferByIdAction} from '../../store/api-actions';
-import {Offers} from '../../types/offer';
-import {getOffers} from '../../store/offer-data/selectors';
+import {AuthorizationStatus, GOODS} from '../../components/const/const';
+import {Offers, OfferCity} from '../../types/offer';
+import {fetchReviewsAction, fetchOfferByIdAction, fetchNearOffersAction} from '../../store/api-actions';
+import {getOffer, getOffers, getNearOffers, getNearOfferLoadingStatus} from '../../store/offer-data/selectors';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import ReviewsList from '../../components/reviews/reviews-list';
 import ReviewsForm from '../../components/reviews/reviews-form';
@@ -23,12 +22,11 @@ function RoomRender(): JSX.Element {
   const hotelId = Number(id);
   const [, setCurrentOffer] = useState<Offers | null>(null);
   const places = useAppSelector(getOffers);
-  const nearPoint = useAppSelector(getOffers);
-  const nearOffers = useAppSelector(getOffers);
 
   useEffect(() => {
     setCurrentOffer(places);
-  }, [places, dispatch]);
+    dispatch(fetchNearOffersAction(id));
+  }, [places, id, dispatch]);
 
   useEffect(() => {
     if (isNaN(hotelId)) {
@@ -39,7 +37,9 @@ function RoomRender(): JSX.Element {
     }
   }, [id, hotelId, dispatch]);
 
-
+  const nearOffer = useAppSelector(getNearOffers);
+  const currentOffer = useAppSelector(getOffer);
+  const nearOfferLoadingStatus = useAppSelector(getNearOfferLoadingStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const roomOffers: OfferCity | undefined = places.find((offer) => offer.id === Number(id));
@@ -52,10 +52,6 @@ function RoomRender(): JSX.Element {
   const {bedrooms, description, host, maxAdults, price, rating, title, type, isPremium} = roomOffers;
   const {avatarUrl, name} = host;
   const visuallyRating = `${Math.round(rating) / 5 * 100}%`;
-
-  const GOODS = ['Heating', 'WiFi', 'Cabel TV', 'Coffee machine', 'Kitchen'];
-
-  const nearOffer = places.filter((item) => item.id !== Number(id)).slice(0, 3);
 
   return (
     <>
@@ -137,7 +133,7 @@ function RoomRender(): JSX.Element {
               </div>
             </div>
             <section className="property__map map">
-              <Map places={nearOffer} nearPoint={nearPoint} nearOffers={nearOffers}/>
+              {!nearOfferLoadingStatus && nearOffer.length !== 0 ? <Map places={nearOffer} currentOffer={currentOffer} /> : null}
             </section>
           </section>
           <div className="container">

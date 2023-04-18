@@ -9,3 +9,5 @@ export const getOffer = (state: State): OfferCity | null => state[NameSpace.Data
 export const getData = (state: State): Offers => state[NameSpace.Data].data;
 export const getSortType = (state: State): string => state[NameSpace.Data].sortType;
 export const getSelectPoint = (state: State): number => state[NameSpace.Data].selectPoint;
+export const getNearOffers = (state: State): Offers => state[NameSpace.Data].nearOffers;
+export const getNearOfferLoadingStatus = (state: State): boolean => state[NameSpace.Data].isNearOfferLoading;

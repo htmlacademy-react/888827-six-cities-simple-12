@@ -9,8 +9,7 @@ import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   places: Offers;
-  nearPoint?: OfferCity[];
-  nearOffers?: Offers;
+  currentOffer?: OfferCity | null;
 };
 
 const defaultCustomIcon = new Icon({
@@ -25,9 +24,9 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map({places, nearPoint, nearOffers}: MapProps) {
+function Map({places, currentOffer}: MapProps) {
 
-  const selectedPoint = useAppSelector(getSelectPoint);
+  let selectedPoint = useAppSelector(getSelectPoint);
 
   const offerCity = places.map((place) => {
     const obj = {
@@ -39,7 +38,7 @@ function Map({places, nearPoint, nearOffers}: MapProps) {
     return obj;
   });
 
-  const offerPins = places.map((place) => {
+  let offerPins = places.map((place) => {
     const obj = {
       id: place.id,
       lat: place.location.latitude,
@@ -47,6 +46,16 @@ function Map({places, nearPoint, nearOffers}: MapProps) {
     };
     return obj;
   });
+
+  if (currentOffer) {
+    offerPins = [...offerPins, {
+      id: currentOffer.id,
+      lat: currentOffer.location.latitude,
+      lng: currentOffer.location.longitude,
+    }];
+
+    selectedPoint = currentOffer.id;
+  }
 
   const city = offerCity[0];
 
@@ -75,38 +84,8 @@ function Map({places, nearPoint, nearOffers}: MapProps) {
 
       });
 
-      if (nearOffers) {
-        offerPins.forEach((point) => {
-          map.setView({
-            lat: city.latitude,
-            lng: city.longitude
-          });
-          const marker = new Marker({
-            lat: point.lat,
-            lng: point.lng,
-          });
-
-          marker
-            .setIcon(
-              point.id === selectedPoint
-                ? defaultCustomIcon
-                : defaultCustomIcon
-            )
-            .addTo(map);
-
-        });
-      }
-
-      if (nearPoint) {
-        const marker = new Marker({
-          lat: city.latitude,
-          lng: city.longitude
-        });
-        marker.setIcon(currentCustomIcon).addTo(map);
-      }
-
     }
-  }, [map, offerPins, selectedPoint, city, nearPoint, nearOffers]);
+  }, [map, offerPins, selectedPoint, city]);
 
   return (
     <div className='cities__map map'
