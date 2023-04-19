@@ -23,6 +23,7 @@ export type OfferProcess = {
 export type ReviewProcess = {
   reviews: Reviews;
   hasError: boolean;
+  isReviewLoading: boolean;
 };
 
 export type UserProcess = {

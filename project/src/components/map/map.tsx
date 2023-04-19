@@ -28,7 +28,7 @@ function Map({places, currentOffer}: MapProps) {
 
   let selectedPoint = useAppSelector(getSelectPoint);
 
-  const offerCity = places.map((place) => {
+  const offerCities = places.map((place) => {
     const obj = {
       name: place.city.name,
       latitude: place.city.location.latitude,
@@ -57,7 +57,7 @@ function Map({places, currentOffer}: MapProps) {
     selectedPoint = currentOffer.id;
   }
 
-  const city = offerCity[0];
+  const city = offerCities[0];
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
