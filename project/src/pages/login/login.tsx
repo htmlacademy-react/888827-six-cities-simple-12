@@ -6,9 +6,10 @@ import {useAppSelector, useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {AuthData} from '../../types/auth-data';
 import {Navigate} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus, LOCATIONS} from '../../components/const/const';
+import {AppRoute, AuthorizationStatus} from '../../components/const/const';
 import {toast} from 'react-toastify';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {getFirstCity} from '../../store/offer-process/selectors';
 import Logo from '../../components/logo/logo';
 
 function LoginRender(): JSX.Element {
@@ -16,6 +17,7 @@ function LoginRender(): JSX.Element {
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const authStatus = useAppSelector(getAuthorizationStatus);
+  const visibleCity = useAppSelector(getFirstCity);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -24,7 +26,7 @@ function LoginRender(): JSX.Element {
     dispatch(loginAction(authData));
   };
 
-  const isPasswordValidate = (password: string): boolean => {
+  const validatePassword = (password: string): boolean => {
     const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{2,}$/g;
     return regex.test(password);
   };
@@ -33,7 +35,7 @@ function LoginRender(): JSX.Element {
     evt.preventDefault();
 
     if (loginRef.current !== null && passwordRef.current !== null) {
-      if (isPasswordValidate(passwordRef.current.value)) {
+      if (validatePassword(passwordRef.current.value)) {
         onSubmit({
           login: loginRef.current.value,
           password: passwordRef.current.value,
@@ -85,7 +87,7 @@ function LoginRender(): JSX.Element {
                 <section className="locations locations--login locations--current">
                   <div className="locations__item">
                     <Link className="locations__item-link" to="/">
-                      <span>{LOCATIONS[Math.floor(Math.random() * LOCATIONS.length)]}</span>
+                      <span>{visibleCity}</span>
                     </Link>
                   </div>
                 </section>

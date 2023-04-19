@@ -8,8 +8,8 @@ import {Offers, OfferCity} from '../../types/offer';
 import {fetchReviewsAction, fetchOfferByIdAction, fetchNearOffersAction} from '../../store/api-actions';
 import {getOffer, getOffers, getNearOffers, getNearOfferLoadingStatus} from '../../store/offer-data/selectors';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
-import ReviewsList from '../../components/reviews/reviews-list';
-import ReviewsForm from '../../components/reviews/reviews-form';
+import ReviewsList from '../../components/reviews-list/reviews-list';
+import ReviewsForm from '../../components/reviews-form/reviews-form';
 import Map from '../../components/map/map';
 import ListOffers from '../../components/list-offers/list-offers';
 import PropertyGallery from '../../components/property-gallery/property-gallery';
@@ -37,7 +37,7 @@ function RoomRender(): JSX.Element {
     }
   }, [id, hotelId, dispatch]);
 
-  const nearOffer = useAppSelector(getNearOffers);
+  const nearOffers = useAppSelector(getNearOffers);
   const currentOffer = useAppSelector(getOffer);
   const nearOfferLoadingStatus = useAppSelector(getNearOfferLoadingStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -133,14 +133,14 @@ function RoomRender(): JSX.Element {
               </div>
             </div>
             <section className="property__map map">
-              {!nearOfferLoadingStatus && nearOffer.length !== 0 ? <Map places={nearOffer} currentOffer={currentOffer} /> : null}
+              {!nearOfferLoadingStatus && nearOffers.length !== 0 ? <Map places={nearOffers} currentOffer={currentOffer} /> : null}
             </section>
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <ListOffers offers={nearOffer} />
+                <ListOffers offers={nearOffers} />
               </div>
             </section>
           </div>

@@ -1,8 +1,8 @@
 import {useAppSelector} from '../../hooks';
 import {MAX_COUNT_REVIEWS} from '../const/const';
 import {getReviews} from '../../store/review-process/selectors';
-import ReviewsItem from '../../components/reviews/reviews-item';
-import ReviewsSort from '../../components/reviews/reviews-sort';
+import ReviewsItem from '../reviews-item/reviews-item';
+import ReviewsSort from '../reviews-sort/reviews-sort';
 
 function ReviewsList():JSX.Element {
   const reviews = useAppSelector(getReviews);
